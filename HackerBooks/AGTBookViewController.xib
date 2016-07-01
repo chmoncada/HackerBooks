@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="AGTBookViewController" customModule="HackerBooks" customModuleProvider="target">
+            <connections>
+                <outlet property="bookAuthors" destination="Q5v-0U-RCb" id="bJt-vi-ke1"/>
+                <outlet property="bookImage" destination="oYn-BE-IDu" id="UBM-vD-yX2"/>
+                <outlet property="bookTags" destination="iut-T6-Rkr" id="OHF-Ct-Eqs"/>
+                <outlet property="bookTitle" destination="pvw-ek-uSo" id="JQy-JK-TKt"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="oYn-BE-IDu">
+                    <rect key="frame" x="180" y="90" width="240" height="240"/>
+                </imageView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="TITLE" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ueo-u6-avN">
+                    <rect key="frame" x="20" y="364" width="44" height="20"/>
+                    <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
+                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pvw-ek-uSo">
+                    <rect key="frame" x="20" y="394" width="34" height="21"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Authors" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Q5v-0U-RCb">
+                    <rect key="frame" x="20" y="425" width="60" height="21"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jKI-ye-7d4">
+                    <rect key="frame" x="20" y="487" width="66" height="30"/>
+                    <state key="normal" title="View PDF"/>
+                    <connections>
+                        <action selector="displayPDF:" destination="-1" eventType="touchUpInside" id="vke-o2-QQf"/>
+                    </connections>
+                </button>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tags" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iut-T6-Rkr">
+                    <rect key="frame" x="20" y="456" width="37" height="21"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="oYn-BE-IDu" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="90" id="1lJ-oZ-Rc4"/>
+                <constraint firstItem="ueo-u6-avN" firstAttribute="top" secondItem="oYn-BE-IDu" secondAttribute="bottom" constant="34" id="87R-cV-Sdy"/>
+                <constraint firstItem="iut-T6-Rkr" firstAttribute="leading" secondItem="ueo-u6-avN" secondAttribute="leading" id="91e-Zo-4NQ"/>
+                <constraint firstItem="pvw-ek-uSo" firstAttribute="leading" secondItem="ueo-u6-avN" secondAttribute="leading" id="9mJ-mH-dPg"/>
+                <constraint firstItem="iut-T6-Rkr" firstAttribute="top" secondItem="Q5v-0U-RCb" secondAttribute="bottom" constant="10" id="FCQ-b3-9Po"/>
+                <constraint firstItem="oYn-BE-IDu" firstAttribute="width" secondItem="i5M-Pr-FkT" secondAttribute="width" multiplier="0.4" id="Jsz-kr-LqN"/>
+                <constraint firstItem="jKI-ye-7d4" firstAttribute="top" secondItem="iut-T6-Rkr" secondAttribute="bottom" constant="10" id="KOw-aZ-SvQ"/>
+                <constraint firstItem="Q5v-0U-RCb" firstAttribute="leading" secondItem="ueo-u6-avN" secondAttribute="leading" id="UKe-pb-IVZ"/>
+                <constraint firstItem="pvw-ek-uSo" firstAttribute="top" secondItem="ueo-u6-avN" secondAttribute="bottom" constant="10" id="ZQt-m7-UsV"/>
+                <constraint firstItem="oYn-BE-IDu" firstAttribute="height" secondItem="i5M-Pr-FkT" secondAttribute="height" multiplier="0.4" id="ZiJ-KQ-55c"/>
+                <constraint firstItem="jKI-ye-7d4" firstAttribute="leading" secondItem="ueo-u6-avN" secondAttribute="leading" id="bNK-hW-rmj"/>
+                <constraint firstItem="ueo-u6-avN" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="20" id="hup-PV-AtD"/>
+                <constraint firstItem="oYn-BE-IDu" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="krr-yX-ok5"/>
+                <constraint firstItem="Q5v-0U-RCb" firstAttribute="top" secondItem="pvw-ek-uSo" secondAttribute="bottom" constant="10" id="xP1-Wc-q1z"/>
+            </constraints>
+        </view>
+    </objects>
+</document>
