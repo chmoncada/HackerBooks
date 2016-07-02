@@ -81,14 +81,3 @@ func loadFromLocalFile(fileName name: String, bundle: NSBundle=NSBundle.mainBund
     }
 }
 
-
-//    let tagsStringsArray = tagsStrings.componentsSeparatedByString(",")
-//    
-//    var tags = [AGTTag]()
-//    for eachTagString in tagsStringsArray{
-//        let newTag = AGTTag(name: eachTagString.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet()))
-//        tags.append(newTag)
-//    }
-//    
-//    return AGTBook(title: title, author: trimmedAuthors, tags: tags, imageURL: imageURL, pdfURL: pdfURL, isFavorite: false)
-//}

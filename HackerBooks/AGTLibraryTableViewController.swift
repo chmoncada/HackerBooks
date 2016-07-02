@@ -8,11 +8,15 @@
 
 import UIKit
 
+let BookDidChangeNotification = "Selected Book did change"
+let BookKey = "Key"
+
 class AGTLibraryTableViewController: UITableViewController {
 
     //MARK: - Properties
     // We make it var because the model will change
     var model : AGTLibrary
+    var delegate : AGTLibraryTableViewControllerDelegate?
     
     //MARK: - Initialization
     init(model: AGTLibrary) {
@@ -33,16 +37,26 @@ class AGTLibraryTableViewController: UITableViewController {
         let nib = UINib(nibName: "AGTLibraryTableViewCell", bundle: nil)
         tableView.registerNib(nib, forCellReuseIdentifier: "cell")
         
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    //MARK: - Table view delegate
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        
+        // Which book
+        let sectionTag = model.tag(atIndex: indexPath.section)
+        let book = model.book(atIndex: indexPath.row, forTag:sectionTag!)
+        // Tell the delegate
+        delegate?.agtLibraryTableViewController(self, didSelectBook: book!)
+        // Send info via notifications
+        let nc = NSNotificationCenter.defaultCenter()
+        let notif = NSNotification(name: BookDidChangeNotification, object: self, userInfo: [BookKey:book!])
+        nc.postNotification(notif)
+        
     }
 
     // MARK: - Table view data source
@@ -88,17 +102,11 @@ class AGTLibraryTableViewController: UITableViewController {
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         return 60
     }
-
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        
-        // Which book
-        let sectionTag = model.tag(atIndex: indexPath.section)
-        let book = model.book(atIndex: indexPath.row, forTag:sectionTag!)
-        // Create the BookVC
-        let bookVC = AGTBookViewController(model: book!)
-        // Make a push to the NavigationViewControler
-        navigationController?.pushViewController(bookVC, animated: true)
-
-    }
     
 }
+
+protocol AGTLibraryTableViewControllerDelegate {
+    func agtLibraryTableViewController(vc : AGTLibraryTableViewController, didSelectBook book: AGTBook)
+}
+
+

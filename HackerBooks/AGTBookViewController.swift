@@ -21,7 +21,7 @@ class AGTBookViewController: UIViewController {
     @IBOutlet weak var bookTags: UILabel!
     
     
-    let model : AGTBook
+    var model : AGTBook
     
     //MARK: - Initialization
     init(model: AGTBook){
@@ -37,7 +37,7 @@ class AGTBookViewController: UIViewController {
     func syncModelWithView(){
         
         //Titulo del navigation bar
-        self.title = "Book Details"
+        self.title = model.title
         
         //Book Photo
         // Carga asincrona, arreglar con chequeo de que el fichero ya existe en los recursos!!!
@@ -51,7 +51,6 @@ class AGTBookViewController: UIViewController {
         bookAuthors.text = model.authors
         
         //Book Tags
-        //bookTags.text = model.tags.joinWithSeparator(", ") //Arreglar esto
         bookTags.text = model.tags
     }
     
@@ -86,6 +85,17 @@ class AGTBookViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+}
+
+extension AGTBookViewController: AGTLibraryTableViewControllerDelegate{
+    
+    func agtLibraryTableViewController(vc : AGTLibraryTableViewController, didSelectBook book: AGTBook){
+        // Update the model
+        model = book
+        //Sync
+        syncModelWithView()
+    }
     
     
 }
+

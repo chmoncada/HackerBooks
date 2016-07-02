@@ -19,47 +19,91 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         
         // crear instancia de modelo
-        do{
-            let json  = try loadFromLocalFile(fileName: "books_readable.json")//de ahi vemos como lo grabamos en disco
-            //print(json)
-            
-            var books = [AGTBook]()
-            for dict in json{
-                do{
-                    let book = try decode(agtBook: dict)
-                    //print(book)
-                    books.append(book)
-                }catch{
-                    print("Error al procesar \(dict)")
-                }
-            }
-            
-            let model = AGTLibrary(arrayOfBooks: books)
+        //do{
 
-        
-//            let model1: AGTBook = AGTBook.init(title: "Pro Git",
-//                                              authors: "Scott Chacon, Ben Straub",
-//                                              tags: "version control, git",
-//                                              image_url: NSURL(string: "http://hackershelf.com/media/cache/b4/24/b42409de128aa7f1c9abbbfa549914de.jpg")!,
-//                                              pdf_url: NSURL(string: "https://progit2.s3.amazonaws.com/en/2015-03-06-439c2/progit-en.376.pdf")!)
-        
+            var books1 = [AGTBook]()
+            let documents = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0]
+            let writePath = documents.stringByAppendingString("/books_readable.json")
+            print(writePath)
+            let firstLaunch = !NSUserDefaults.standardUserDefaults().boolForKey("FirstLaunch")
+            let fileExist = NSFileManager.defaultManager().fileExistsAtPath(writePath)
+            print("first launch = ",firstLaunch)
+            print("file exists = ", fileExist)
+            if firstLaunch {
+                // Check case if the url is wrong!
+                if let url = NSURL(string: "https://t.co/K9ziV0z3SJ"),
+                    data = NSData(contentsOfURL: url),
+                    maybeArray = try? NSJSONSerialization.JSONObjectWithData(data, options:NSJSONReadingOptions.MutableContainers) as? JSONArray,
+                    array = maybeArray {
                     
+                    
+                    let writePath1 = NSURL(fileURLWithPath: documents).URLByAppendingPathComponent("/books_readable.json")
+                    data.writeToURL(writePath1, atomically: false)
+                    //saveData(data)
+                    // books JSON parsing and put it in an Array
+                    for dict in array{
+                        do{
+                            let book = try decode(agtBook: dict)
+                            //print(book)
+                            books1.append(book)
+                        }catch{
+                            print("Error al procesar \(dict)")
+                        }
+                    }
+                    NSUserDefaults.standardUserDefaults().setBool(false, forKey: "FirstLaunch")
+                    }
+            } else if fileExist {
+                //result = try loadJSONLocally()
+            }else{
+                NSUserDefaults.standardUserDefaults().setBool(false, forKey: "FirstLaunch")
+            }
+            //print(books1)
+            
+//            let json  = try loadFromLocalFile(fileName: "books_readable.json")//de ahi vemos como lo grabamos en disco
+//            //print(json)
+//            
+//            var books = [AGTBook]()
+//            // books JSON parsing and put it in an Array
+//            for dict in json{
+//                do{
+//                    let book = try decode(agtBook: dict)
+//                    //print(book)
+//                    books.append(book)
+//                }catch{
+//                    print("Error al procesar \(dict)")
+//                }
+//            }
+//            print(books)
+            
+            // Model Creation
+            let model = AGTLibrary(arrayOfBooks: books1)
+
             // Create a window
             window = UIWindow(frame: UIScreen.mainScreen().bounds)
-            // Creation of View Controller
+            // Creation of libraryVC
             let lVC = AGTLibraryTableViewController(model: model)
-            // Put the VC inside a NavigationController
-            let nav = UINavigationController(rootViewController: lVC)
+            // Put the libraryVC inside a NavigationController
+            let lNav = UINavigationController(rootViewController: lVC)
+            lNav.navigationBar.topItem?.title = "HackerBooks"
+            // Creation of BookVC
+            let bVC = AGTBookViewController(model: model.book(atIndex: 0, forTag: model.tag(atIndex: 0)!)!)
+            // Put the BookVC inside Navigation Controller
+            let bNav = UINavigationController(rootViewController: bVC)
+            //Creation of SplitView and put the 2 VCs
+            let splitVC = UISplitViewController()
+            splitVC.viewControllers = [lNav, bNav]
             // make the NavigationController as rootViewController
-            window?.rootViewController = nav
+            window?.rootViewController = splitVC
+            // Designate the delegates
+            lVC.delegate = bVC
             // Make the windows visible & key
             window!.makeKeyAndVisible()
         
             return true
             
-        }catch{
-            fatalError("Error while loading JSON")
-        }
+//        }catch{
+//            fatalError("Error while loading JSON")
+//        }
 
     }
     func applicationWillResignActive(application: UIApplication) {

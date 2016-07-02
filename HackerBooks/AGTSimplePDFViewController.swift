@@ -45,14 +45,22 @@ class AGTSimplePDFViewController: UIViewController, UIWebViewDelegate {
     //MARK: - View lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        syncModelWithView()
-
         // Do any additional setup after loading the view.
     }
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
+        // put an observer to notifications
+        let nc = NSNotificationCenter.defaultCenter()
+        nc.addObserver(self, selector: #selector(bookDidChange), name: BookDidChangeNotification, object: nil)
+        syncModelWithView()
+    }
+    
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
+        // Remove observer
+        let nc = NSNotificationCenter.defaultCenter()
+        nc.removeObserver(self)
     }
     
     //MARK: - Memory
@@ -60,6 +68,19 @@ class AGTSimplePDFViewController: UIViewController, UIWebViewDelegate {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
+    //MARK: - Utils
+    func bookDidChange(notification: NSNotification) {
+        // Sacar el userInfo
+        let info = notification.userInfo!
+        //Sacar el libro
+        let book = info[BookKey] as? AGTBook
+        //Actualizar el modelo
+        model = book!
+        //Sync the view
+        syncModelWithView()
+    }
+    
     
     //MARK: - UIWebViewDelegate
     func webViewDidFinishLoad(webView: UIWebView) {

@@ -22,7 +22,6 @@
 		A1B274EB1D2181C30047BF63 /* AGTLibrary.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B274EA1D2181C30047BF63 /* AGTLibrary.swift */; };
 		A1B274F31D222C310047BF63 /* JSONProcessing.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B274F21D222C310047BF63 /* JSONProcessing.swift */; };
 		A1B274F51D222D7B0047BF63 /* Errors.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B274F41D222D7B0047BF63 /* Errors.swift */; };
-		A1CF05F01D26BF0700168E5C /* books_readable.json in Resources */ = {isa = PBXBuildFile; fileRef = A1CF05EF1D26BF0700168E5C /* books_readable.json */; };
 		A1CF05F31D273C9F00168E5C /* AGTLibraryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1CF05F11D273C9F00168E5C /* AGTLibraryTableViewCell.swift */; };
 		A1CF05F41D273C9F00168E5C /* AGTLibraryTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A1CF05F21D273C9F00168E5C /* AGTLibraryTableViewCell.xib */; };
 		A1CF05F61D274FDD00168E5C /* star.png in Resources */ = {isa = PBXBuildFile; fileRef = A1CF05F51D274FDD00168E5C /* star.png */; };
@@ -67,7 +66,6 @@
 		A1B274EA1D2181C30047BF63 /* AGTLibrary.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AGTLibrary.swift; sourceTree = "<group>"; };
 		A1B274F21D222C310047BF63 /* JSONProcessing.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONProcessing.swift; sourceTree = "<group>"; };
 		A1B274F41D222D7B0047BF63 /* Errors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Errors.swift; sourceTree = "<group>"; };
-		A1CF05EF1D26BF0700168E5C /* books_readable.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = books_readable.json; sourceTree = "<group>"; };
 		A1CF05F11D273C9F00168E5C /* AGTLibraryTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AGTLibraryTableViewCell.swift; sourceTree = "<group>"; };
 		A1CF05F21D273C9F00168E5C /* AGTLibraryTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AGTLibraryTableViewCell.xib; sourceTree = "<group>"; };
 		A1CF05F51D274FDD00168E5C /* star.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = star.png; sourceTree = "<group>"; };
@@ -188,7 +186,6 @@
 			isa = PBXGroup;
 			children = (
 				A1CF05F51D274FDD00168E5C /* star.png */,
-				A1CF05EF1D26BF0700168E5C /* books_readable.json */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -305,7 +302,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A1CF05F01D26BF0700168E5C /* books_readable.json in Resources */,
 				A1B274C11D2175450047BF63 /* LaunchScreen.storyboard in Resources */,
 				A1CF05F41D273C9F00168E5C /* AGTLibraryTableViewCell.xib in Resources */,
 				A1B274BE1D2175450047BF63 /* Assets.xcassets in Resources */,
