@@ -19,16 +19,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         
         // crear instancia de modelo
-        //CREAR MODELO PRUEBA
-        /*
-        {
-            "authors": "Scott Chacon, Ben Straub",
-            "image_url": "http://hackershelf.com/media/cache/b4/24/b42409de128aa7f1c9abbbfa549914de.jpg",
-            "pdf_url": "https://progit2.s3.amazonaws.com/en/2015-03-06-439c2/progit-en.376.pdf",
-            "tags": "version control, git",
-            "title": "Pro Git"
-        }
-        */
         do{
             let json  = try loadFromLocalFile(fileName: "books_readable.json")//de ahi vemos como lo grabamos en disco
             //print(json)
@@ -45,44 +35,28 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
             
             let model = AGTLibrary(arrayOfBooks: books)
-            
-            
-            
-//            var books = AGTBook
-//            for dict in json{
-//                do{
-//                    let char = try decode(starWarsCharacter: dict)
-//                    chars.append(char)
-//                }catch{
-//                    print("Error al procesar \(dict)")
-//                }
-//                
-//            }
-//            let modeloADecode = json[3]
-//            print("HOLA")
-//            print(modeloADecode)
-//            let model1 = try decode(agtBook: modeloADecode)
+
         
-            let model1: AGTBook = AGTBook.init(title: "Pro Git",
-                                              authors: "Scott Chacon, Ben Straub",
-                                              tags: "version control, git",
-                                              image_url: NSURL(string: "http://hackershelf.com/media/cache/b4/24/b42409de128aa7f1c9abbbfa549914de.jpg")!,
-                                              pdf_url: NSURL(string: "https://progit2.s3.amazonaws.com/en/2015-03-06-439c2/progit-en.376.pdf")!)
+//            let model1: AGTBook = AGTBook.init(title: "Pro Git",
+//                                              authors: "Scott Chacon, Ben Straub",
+//                                              tags: "version control, git",
+//                                              image_url: NSURL(string: "http://hackershelf.com/media/cache/b4/24/b42409de128aa7f1c9abbbfa549914de.jpg")!,
+//                                              pdf_url: NSURL(string: "https://progit2.s3.amazonaws.com/en/2015-03-06-439c2/progit-en.376.pdf")!)
         
                     
-            // crear una window
+            // Create a window
             window = UIWindow(frame: UIScreen.mainScreen().bounds)
-        
-            // crear un VC
-            let vc = AGTBookViewController(model: model1)
-            // empotrarlo en un navigation3
-            let navigationController = UINavigationController(rootViewController: vc)
-            // asignar el nav como rootVC
-            window?.rootViewController = navigationController
-            // hacer visible & key a la window
+            // Creation of View Controller
+            let lVC = AGTLibraryTableViewController(model: model)
+            // Put the VC inside a NavigationController
+            let nav = UINavigationController(rootViewController: lVC)
+            // make the NavigationController as rootViewController
+            window?.rootViewController = nav
+            // Make the windows visible & key
             window!.makeKeyAndVisible()
         
             return true
+            
         }catch{
             fatalError("Error while loading JSON")
         }

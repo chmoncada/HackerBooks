@@ -23,6 +23,7 @@ class AGTLibrary {
     //Tags array
     var libraryCleanandSortedTags: AGTTagsArray = []
     
+    //MARK: - Initialization
     init(arrayOfBooks : AGTBooksArray) {
         
         books = arrayOfBooks
@@ -35,9 +36,14 @@ class AGTLibrary {
         }
         // Cleaning duplicates and sorted alphabetically
         libraryCleanandSortedTags = libraryTags.removeDuplicates().sort()
-        //print(libraryCleanandSortedTags)
+//        print(libraryCleanandSortedTags)
+//        print(tagCount)
+//        print(tag(atIndex: 0))
+//        print(tag(atIndex: 30))
+//        print(tag(atIndex: 61))
+//        print(tag(atIndex: 62))
+//        print(tag(atIndex: -5))
         // PRUEBA DE FUNCION print("HOLA",bookCount(forTag: "asgit"))
-        //print(tagCount)
         //print(booksCount)
 //        print( books(forTag: "git" )!)
 //        print(book(atIndex: 0, forTag: "git"))
@@ -45,8 +51,14 @@ class AGTLibrary {
 //        print(book(atIndex: 2, forTag: "git"))
 //        print(book(atIndex: -2, forTag: "git"))
 //        print(book(atIndex: 2, forTag: "asdgit"))
+        
+//        let sectionTag = tag(atIndex: 49)
+//        print(sectionTag)
+//        print(bookCount(forTag: sectionTag!))
+        
     }
     
+    //MARK: - Computed Properties
     var tagCount : Int {
         get{
             //Indica cuantos tags hay
@@ -59,6 +71,15 @@ class AGTLibrary {
             let count: Int = self.books.count
             return count
         }
+    }
+    
+    //MARK: - Instance functions
+    
+    func tag(atIndex indexTag: Int) -> String?{
+        guard indexTag < libraryCleanandSortedTags.count && indexTag>=0 else{
+            return nil
+        }
+        return libraryCleanandSortedTags[indexTag]
     }
     
     func bookCount(forTag tag: String) -> Int{
