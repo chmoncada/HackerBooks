@@ -20,6 +20,7 @@ class AGTBookViewController: UIViewController {
     
     @IBOutlet weak var bookTags: UILabel!
     
+    @IBOutlet weak var bookFavorite: UIButton!
     
     var model : AGTBook
     
@@ -56,6 +57,7 @@ class AGTBookViewController: UIViewController {
     
     
     //MARK: - Actions
+    // view pdf button
     @IBAction func displayPDF(sender: AnyObject) {
         
         //Creation of PDFViewer
@@ -64,6 +66,11 @@ class AGTBookViewController: UIViewController {
         navigationController?.pushViewController(pdfVC, animated: true)
     }
     
+    //  favorite button
+    @IBAction func favIconTapped(sender: AnyObject) {
+        print("HOLA")
+    
+    }
     
     //MARK: - lifecycle
     override func viewDidLoad() {

@@ -45,7 +45,6 @@ func decode(agtBook json: JSONDictionary) throws -> AGTBook {
             throw HackerBooksError.WrongURLFormatForJSONResource
     }
 
-    //We need to fix it, we need to split the string in an array
     guard let tags = json["tags"] as? String else{
         throw HackerBooksError.WrongJSONFormat
     }
@@ -67,7 +66,7 @@ func decode(agtBook json: JSONDictionary?) throws -> AGTBook {
     }
 }
 
-//Mark: Loading
+//MARK: Loading and Saving Utils
 
 //Local file loading
 func loadFromLocalFile(fileName name: String, bundle: NSBundle=NSBundle.mainBundle()) throws -> JSONArray{
@@ -79,5 +78,51 @@ func loadFromLocalFile(fileName name: String, bundle: NSBundle=NSBundle.mainBund
     } else {
             throw HackerBooksError.jsonParsingError
     }
+}
+
+func loadJSONLocally() throws -> JSONArray{
+    let documents = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0]
+    let writePath = NSURL(fileURLWithPath: documents).URLByAppendingPathComponent("books_readable.json")
+    if let data = NSData(contentsOfURL: writePath),
+        maybeArray = try? NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers) as? JSONArray,
+        array = maybeArray{
+        return array
+    } else {
+        throw HackerBooksError.jsonParsingError
+    }
+}
+
+// Remote loading
+func loadFromRemoteFile(atURL inputUrl: String) throws -> JSONArray{
+    
+    if let url = NSURL(string: inputUrl),
+        data = NSData(contentsOfURL: url),
+        maybeArray = try? NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers) as? JSONArray,
+        array = maybeArray {
+        saveData(data)
+        return array
+    } else {
+        throw HackerBooksError.jsonParsingError
+    }
+}
+
+// Sandbox saving
+
+// falta hacerlo mas generico
+func saveData(data: NSData){
+    let documents = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0]
+    let writePath = NSURL(fileURLWithPath: documents).URLByAppendingPathComponent("books_readable.json")
+    data.writeToURL(writePath, atomically: false)
+}
+
+
+//MARK: - Local path utils
+func sandboxPath(forFile file:String) -> String{
+    // Get the Sandbox path, every time the app starts, it changes
+    let documents = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0]
+    let filePath = "/" + file
+    let writePath = documents.stringByAppendingString(filePath)
+    
+    return writePath
 }
 

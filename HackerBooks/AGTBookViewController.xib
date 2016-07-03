@@ -9,6 +9,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="AGTBookViewController" customModule="HackerBooks" customModuleProvider="target">
             <connections>
                 <outlet property="bookAuthors" destination="Q5v-0U-RCb" id="bJt-vi-ke1"/>
+                <outlet property="bookFavorite" destination="7hr-hP-ddY" id="j4i-hU-CAH"/>
                 <outlet property="bookImage" destination="oYn-BE-IDu" id="UBM-vD-yX2"/>
                 <outlet property="bookTags" destination="iut-T6-Rkr" id="OHF-Ct-Eqs"/>
                 <outlet property="bookTitle" destination="pvw-ek-uSo" id="JQy-JK-TKt"/>
@@ -69,6 +70,9 @@
                             </fragment>
                         </attributedString>
                     </state>
+                    <connections>
+                        <action selector="favIconTapped:" destination="-1" eventType="touchUpInside" id="93w-Ff-xzu"/>
+                    </connections>
                 </button>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
