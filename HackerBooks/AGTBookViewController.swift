@@ -8,6 +8,9 @@
 
 import UIKit
 
+let bookDidChangeNotification = "Selected Book did change"
+let bookKey = "key"
+
 class AGTBookViewController: UIViewController {
 
     //MARK: - Properties
@@ -26,11 +29,11 @@ class AGTBookViewController: UIViewController {
     
     
     
+    
     var model : AGTBook
     
     //Prueba de boton
     var isFavorite = false
-
     
     //MARK: - Initialization
     init(model: AGTBook){
@@ -64,8 +67,9 @@ class AGTBookViewController: UIViewController {
         bookTags.text = model.tags
         
         //Status of Favorite Button (change the button status and the value of favorite var)
-        bookFavoriteControl.isFavorite = model.favorite
-        bookFavoriteControl.button.selected = model.favorite
+        //bookFavoriteControl.isFavorite = model.favorite
+        isFavorite = model.favorite
+        bookFavoriteControl.selected = model.favorite
         
         
     }
@@ -79,6 +83,19 @@ class AGTBookViewController: UIViewController {
         let pdfVC = AGTSimplePDFViewController(model: model)
         //Make a push of NavigationCOntroller
         navigationController?.pushViewController(pdfVC, animated: true)
+    }
+    @IBAction func favButtonPressed(sender: AnyObject) {
+        print("se apreto el boton")
+        isFavorite = !isFavorite
+        bookFavoriteControl.selected = isFavorite
+        print("status de Favorito= ", isFavorite)
+        //Cambiamos el status de favorito del modelo
+        model.favorite = isFavorite
+        //Enviamos la info via notificacion
+        let nc = NSNotificationCenter.defaultCenter()
+        let notif = NSNotification(name: bookDidChangeNotification, object: self, userInfo: [BookKey: model])
+        nc.postNotification(notif)
+        
     }
     
         

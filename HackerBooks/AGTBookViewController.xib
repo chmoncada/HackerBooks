@@ -58,6 +58,9 @@
                 <view contentMode="scaleToFill" placeholderIntrinsicWidth="240" placeholderIntrinsicHeight="44" translatesAutoresizingMaskIntoConstraints="NO" id="Yo8-t2-ZE5" customClass="AGTStar" customModule="HackerBooks" customModuleProvider="target">
                     <rect key="frame" x="20" y="511" width="240" height="44"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <connections>
+                        <action selector="favButtonPressed:" destination="-1" eventType="touchDown" id="bva-BR-dVb"/>
+                    </connections>
                 </view>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
