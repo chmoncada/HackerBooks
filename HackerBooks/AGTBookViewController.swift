@@ -20,15 +20,24 @@ class AGTBookViewController: UIViewController {
     
     @IBOutlet weak var bookTags: UILabel!
     
-    @IBOutlet weak var bookFavorite: UIButton!
+    @IBOutlet weak var bookFavoriteControl: AGTStar!
+    
+    
+    
+    
     
     var model : AGTBook
+    
+    //Prueba de boton
+    var isFavorite = false
+
     
     //MARK: - Initialization
     init(model: AGTBook){
         self.model = model
         super.init(nibName: nil, bundle: nil)
-    }
+        
+            }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -53,6 +62,12 @@ class AGTBookViewController: UIViewController {
         
         //Book Tags
         bookTags.text = model.tags
+        
+        //Status of Favorite Button (change the button status and the value of favorite var)
+        bookFavoriteControl.isFavorite = model.favorite
+        bookFavoriteControl.button.selected = model.favorite
+        
+        
     }
     
     
@@ -66,12 +81,7 @@ class AGTBookViewController: UIViewController {
         navigationController?.pushViewController(pdfVC, animated: true)
     }
     
-    //  favorite button
-    @IBAction func favIconTapped(sender: AnyObject) {
-        print("HOLA")
-    
-    }
-    
+        
     //MARK: - lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()

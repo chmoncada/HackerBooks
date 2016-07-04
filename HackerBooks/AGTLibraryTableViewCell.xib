@@ -3,7 +3,6 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -12,18 +11,11 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="60"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="59.5"/>
+                <rect key="frame" x="0.0" y="0.0" width="320" height="59"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zt1-9O-W3f">
                         <rect key="frame" x="8" y="8" width="41" height="43"/>
-                    </imageView>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="star.png" translatesAutoresizingMaskIntoConstraints="NO" id="a8t-sR-Foo">
-                        <rect key="frame" x="277" y="17" width="25" height="25"/>
-                        <constraints>
-                            <constraint firstAttribute="height" constant="25" id="7t6-ZS-aps"/>
-                            <constraint firstAttribute="width" constant="25" id="rYb-nN-Z94"/>
-                        </constraints>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jOT-kW-4Pu">
                         <rect key="frame" x="57" y="30" width="209" height="21"/>
@@ -37,22 +29,19 @@
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <view userInteractionEnabled="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0om-b2-9gg" customClass="AGTStar" customModule="HackerBooks" customModuleProvider="target">
+                        <rect key="frame" x="269" y="8" width="43" height="43"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
                 </subviews>
-                <constraints>
-                    <constraint firstItem="a8t-sR-Foo" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="VZK-lD-r88"/>
-                    <constraint firstItem="a8t-sR-Foo" firstAttribute="trailing" secondItem="H2p-sc-9uM" secondAttribute="trailingMargin" constant="-10" id="Vfg-nx-ckC"/>
-                </constraints>
             </tableViewCellContentView>
             <connections>
                 <outlet property="bookAuthors" destination="jOT-kW-4Pu" id="AVl-qC-6f9"/>
-                <outlet property="bookFavIcon" destination="a8t-sR-Foo" id="7JP-8w-SOu"/>
+                <outlet property="bookFavoriteControl" destination="0om-b2-9gg" id="rBd-G8-2us"/>
                 <outlet property="bookImage" destination="zt1-9O-W3f" id="hkI-gn-AVD"/>
                 <outlet property="bookTitle" destination="FN2-b1-19X" id="cBE-Ds-y95"/>
             </connections>
             <point key="canvasLocation" x="496" y="493"/>
         </tableViewCell>
     </objects>
-    <resources>
-        <image name="star.png" width="128" height="128"/>
-    </resources>
 </document>

@@ -13,20 +13,22 @@ class AGTBook {
     //MARK: - Stored Properties
     let title: String
     let authors: String
-    let tags: String //Aun tiene un problema de parsear el campo
+    let tags: String
     let image_url: NSURL
     let pdf_url: NSURL
+    var favorite : Bool
     //We take the assumption that all fields are mandatory
     
     //falta anadir el link de favoritos
     
     //MARK: Initialization
-    init(title:String, authors:String, tags:String, image_url: NSURL, pdf_url: NSURL){
+    init(title:String, authors:String, tags:String, image_url: NSURL, pdf_url: NSURL, favorite: Bool){
         self.title = title
         self.authors = authors
         self.tags = tags
         self.image_url = image_url
         self.pdf_url = pdf_url
+        self.favorite = favorite
     }
 }
 

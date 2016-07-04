@@ -53,7 +53,9 @@ func decode(agtBook json: JSONDictionary) throws -> AGTBook {
         throw HackerBooksError.WrongJSONFormat
     }
     
-    return AGTBook(title: title, authors: authors, tags: tags, image_url: image_url, pdf_url: pdf_url)
+    let favorite = false
+    
+    return AGTBook(title: title, authors: authors, tags: tags, image_url: image_url, pdf_url: pdf_url, favorite: favorite)
     
 }
 
@@ -69,17 +71,6 @@ func decode(agtBook json: JSONDictionary?) throws -> AGTBook {
 //MARK: Loading and Saving Utils
 
 //Local file loading
-func loadFromLocalFile(fileName name: String, bundle: NSBundle=NSBundle.mainBundle()) throws -> JSONArray{
-    if let url = bundle.URLForResource(name),
-        data = NSData(contentsOfURL: url),
-        maybeArray = try? NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers) as? JSONArray,
-        array = maybeArray {
-        return array
-    } else {
-            throw HackerBooksError.jsonParsingError
-    }
-}
-
 func loadJSONLocally() throws -> JSONArray{
     let documents = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0]
     let writePath = NSURL(fileURLWithPath: documents).URLByAppendingPathComponent("books_readable.json")
@@ -93,8 +84,7 @@ func loadJSONLocally() throws -> JSONArray{
 }
 
 // Remote loading
-func loadFromRemoteFile(atURL inputUrl: String) throws -> JSONArray{
-    
+func loadJSONFromRemoteFile(atURL inputUrl: String) throws -> JSONArray{
     if let url = NSURL(string: inputUrl),
         data = NSData(contentsOfURL: url),
         maybeArray = try? NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers) as? JSONArray,

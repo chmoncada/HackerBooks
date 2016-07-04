@@ -34,13 +34,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if firstLaunch || !fileExist {
             // Remote loading of JSON and saving in sandbox
             do {
-                jsonParsed = try loadFromRemoteFile(atURL: jsonURLString)
+                jsonParsed = try loadJSONFromRemoteFile(atURL: jsonURLString)
             } catch {
                 fatalError("Error while loading JSON")
             }
             
             //Change NSUsersDefault key
-            NSUserDefaults.standardUserDefaults().setBool(true, forKey: "FirstLaunch") //NOTA: CAMBIAR A TRUE CUANDO FUNCIONE LA CARGA LOCAL
+            NSUserDefaults.standardUserDefaults().setBool(true, forKey: "FirstLaunch")
 
         } else {
             // Loading locally

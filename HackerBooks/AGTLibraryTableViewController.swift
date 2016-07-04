@@ -92,6 +92,8 @@ class AGTLibraryTableViewController: UITableViewController {
         cell.bookImage.image = UIImage(data: data!)
         cell.bookTitle.text = book?.title
         cell.bookAuthors.text = book?.authors
+        //print((book?.title)!," status favorito: ", (book?.favorite)!)
+        cell.bookFavoriteControl.button.selected = (book?.favorite)!
         
         return cell
     }

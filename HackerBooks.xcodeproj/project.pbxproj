@@ -10,6 +10,9 @@
 		A10763791D24238E00443304 /* AGTSimplePDFViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10763771D24238E00443304 /* AGTSimplePDFViewController.swift */; };
 		A107637A1D24238E00443304 /* AGTSimplePDFViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A10763781D24238E00443304 /* AGTSimplePDFViewController.xib */; };
 		A10BB2DA1D2601420059A8A7 /* AGTLibraryTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10BB2D91D2601420059A8A7 /* AGTLibraryTableViewController.swift */; };
+		A17A3BA41D29B94400A3679F /* emptyStar.png in Resources */ = {isa = PBXBuildFile; fileRef = A17A3BA31D29B94400A3679F /* emptyStar.png */; };
+		A17A3BAA1D29BAF800A3679F /* filledStar.png in Resources */ = {isa = PBXBuildFile; fileRef = A17A3BA91D29BAF800A3679F /* filledStar.png */; };
+		A17A3BAC1D29BBB500A3679F /* AGTStar.swift in Sources */ = {isa = PBXBuildFile; fileRef = A17A3BAB1D29BBB500A3679F /* AGTStar.swift */; };
 		A197F14B1D23662700A18EC9 /* Foundation.swift in Sources */ = {isa = PBXBuildFile; fileRef = A197F14A1D23662700A18EC9 /* Foundation.swift */; };
 		A197F14F1D2367DB00A18EC9 /* AGTBookViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A197F14D1D2367DB00A18EC9 /* AGTBookViewController.swift */; };
 		A197F1501D2367DB00A18EC9 /* AGTBookViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A197F14E1D2367DB00A18EC9 /* AGTBookViewController.xib */; };
@@ -49,6 +52,9 @@
 		A10763771D24238E00443304 /* AGTSimplePDFViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AGTSimplePDFViewController.swift; sourceTree = "<group>"; };
 		A10763781D24238E00443304 /* AGTSimplePDFViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AGTSimplePDFViewController.xib; sourceTree = "<group>"; };
 		A10BB2D91D2601420059A8A7 /* AGTLibraryTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AGTLibraryTableViewController.swift; sourceTree = "<group>"; };
+		A17A3BA31D29B94400A3679F /* emptyStar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = emptyStar.png; sourceTree = "<group>"; };
+		A17A3BA91D29BAF800A3679F /* filledStar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = filledStar.png; sourceTree = "<group>"; };
+		A17A3BAB1D29BBB500A3679F /* AGTStar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AGTStar.swift; sourceTree = "<group>"; };
 		A197F14A1D23662700A18EC9 /* Foundation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Foundation.swift; sourceTree = "<group>"; };
 		A197F14D1D2367DB00A18EC9 /* AGTBookViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AGTBookViewController.swift; sourceTree = "<group>"; };
 		A197F14E1D2367DB00A18EC9 /* AGTBookViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AGTBookViewController.xib; sourceTree = "<group>"; };
@@ -101,6 +107,7 @@
 		A197F14C1D2367B100A18EC9 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				A17A3BAB1D29BBB500A3679F /* AGTStar.swift */,
 				A197F14D1D2367DB00A18EC9 /* AGTBookViewController.swift */,
 				A197F14E1D2367DB00A18EC9 /* AGTBookViewController.xib */,
 				A10763771D24238E00443304 /* AGTSimplePDFViewController.swift */,
@@ -187,6 +194,8 @@
 		A1B274E61D2177C00047BF63 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				A17A3BA91D29BAF800A3679F /* filledStar.png */,
+				A17A3BA31D29B94400A3679F /* emptyStar.png */,
 				A1D27E6A1D288A48009866BC /* books_readable.json */,
 				A1CF05F51D274FDD00168E5C /* star.png */,
 			);
@@ -306,6 +315,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				A1B274C11D2175450047BF63 /* LaunchScreen.storyboard in Resources */,
+				A17A3BAA1D29BAF800A3679F /* filledStar.png in Resources */,
+				A17A3BA41D29B94400A3679F /* emptyStar.png in Resources */,
 				A1CF05F41D273C9F00168E5C /* AGTLibraryTableViewCell.xib in Resources */,
 				A1B274BE1D2175450047BF63 /* Assets.xcassets in Resources */,
 				A1CF05F61D274FDD00168E5C /* star.png in Resources */,
@@ -345,6 +356,7 @@
 				A10BB2DA1D2601420059A8A7 /* AGTLibraryTableViewController.swift in Sources */,
 				A197F14F1D2367DB00A18EC9 /* AGTBookViewController.swift in Sources */,
 				A1B274F31D222C310047BF63 /* JSONProcessing.swift in Sources */,
+				A17A3BAC1D29BBB500A3679F /* AGTStar.swift in Sources */,
 				A1B274E91D2181B30047BF63 /* AGTBook.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

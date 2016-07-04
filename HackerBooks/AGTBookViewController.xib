@@ -9,7 +9,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="AGTBookViewController" customModule="HackerBooks" customModuleProvider="target">
             <connections>
                 <outlet property="bookAuthors" destination="Q5v-0U-RCb" id="bJt-vi-ke1"/>
-                <outlet property="bookFavorite" destination="7hr-hP-ddY" id="j4i-hU-CAH"/>
+                <outlet property="bookFavoriteControl" destination="Yo8-t2-ZE5" id="fGK-GS-cgx"/>
                 <outlet property="bookImage" destination="oYn-BE-IDu" id="UBM-vD-yX2"/>
                 <outlet property="bookTags" destination="iut-T6-Rkr" id="OHF-Ct-Eqs"/>
                 <outlet property="bookTitle" destination="pvw-ek-uSo" id="JQy-JK-TKt"/>
@@ -55,29 +55,15 @@
                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7hr-hP-ddY">
-                    <rect key="frame" x="280" y="513" width="40" height="40"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="40" id="BRu-pe-PPV"/>
-                        <constraint firstAttribute="width" constant="40" id="uqD-sf-UAb"/>
-                    </constraints>
-                    <state key="normal" image="star.png">
-                        <attributedString key="attributedTitle">
-                            <fragment content="Button">
-                                <attributes>
-                                    <font key="NSFont" size="15" name="HelveticaNeue"/>
-                                </attributes>
-                            </fragment>
-                        </attributedString>
-                    </state>
-                    <connections>
-                        <action selector="favIconTapped:" destination="-1" eventType="touchUpInside" id="93w-Ff-xzu"/>
-                    </connections>
-                </button>
+                <view contentMode="scaleToFill" placeholderIntrinsicWidth="240" placeholderIntrinsicHeight="44" translatesAutoresizingMaskIntoConstraints="NO" id="Yo8-t2-ZE5" customClass="AGTStar" customModule="HackerBooks" customModuleProvider="target">
+                    <rect key="frame" x="20" y="511" width="240" height="44"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                </view>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstItem="oYn-BE-IDu" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="90" id="1lJ-oZ-Rc4"/>
+                <constraint firstItem="Yo8-t2-ZE5" firstAttribute="leading" secondItem="jKI-ye-7d4" secondAttribute="leading" id="4jA-Fc-wFj"/>
                 <constraint firstItem="ueo-u6-avN" firstAttribute="top" secondItem="oYn-BE-IDu" secondAttribute="bottom" constant="34" id="87R-cV-Sdy"/>
                 <constraint firstItem="iut-T6-Rkr" firstAttribute="leading" secondItem="ueo-u6-avN" secondAttribute="leading" id="91e-Zo-4NQ"/>
                 <constraint firstItem="pvw-ek-uSo" firstAttribute="leading" secondItem="ueo-u6-avN" secondAttribute="leading" id="9mJ-mH-dPg"/>
@@ -85,18 +71,14 @@
                 <constraint firstItem="oYn-BE-IDu" firstAttribute="width" secondItem="i5M-Pr-FkT" secondAttribute="width" multiplier="0.4" id="Jsz-kr-LqN"/>
                 <constraint firstItem="jKI-ye-7d4" firstAttribute="top" secondItem="iut-T6-Rkr" secondAttribute="bottom" constant="10" id="KOw-aZ-SvQ"/>
                 <constraint firstItem="Q5v-0U-RCb" firstAttribute="leading" secondItem="ueo-u6-avN" secondAttribute="leading" id="UKe-pb-IVZ"/>
+                <constraint firstItem="Yo8-t2-ZE5" firstAttribute="top" secondItem="iut-T6-Rkr" secondAttribute="bottom" constant="34" id="ZKC-Wu-c02"/>
                 <constraint firstItem="pvw-ek-uSo" firstAttribute="top" secondItem="ueo-u6-avN" secondAttribute="bottom" constant="10" id="ZQt-m7-UsV"/>
                 <constraint firstItem="oYn-BE-IDu" firstAttribute="height" secondItem="i5M-Pr-FkT" secondAttribute="height" multiplier="0.4" id="ZiJ-KQ-55c"/>
-                <constraint firstItem="7hr-hP-ddY" firstAttribute="centerX" secondItem="oYn-BE-IDu" secondAttribute="centerX" id="aSh-9j-fHb"/>
                 <constraint firstItem="jKI-ye-7d4" firstAttribute="leading" secondItem="ueo-u6-avN" secondAttribute="leading" id="bNK-hW-rmj"/>
                 <constraint firstItem="ueo-u6-avN" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="20" id="hup-PV-AtD"/>
                 <constraint firstItem="oYn-BE-IDu" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="krr-yX-ok5"/>
-                <constraint firstItem="7hr-hP-ddY" firstAttribute="top" secondItem="oYn-BE-IDu" secondAttribute="bottom" constant="183" id="uA5-57-8U6"/>
                 <constraint firstItem="Q5v-0U-RCb" firstAttribute="top" secondItem="pvw-ek-uSo" secondAttribute="bottom" constant="10" id="xP1-Wc-q1z"/>
             </constraints>
         </view>
     </objects>
-    <resources>
-        <image name="star.png" width="128" height="128"/>
-    </resources>
 </document>

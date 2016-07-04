@@ -16,7 +16,8 @@ class AGTLibraryTableViewCell: UITableViewCell {
     
     @IBOutlet weak var bookAuthors: UILabel!
     
-    @IBOutlet weak var bookFavIcon: UIImageView!
+   
+    @IBOutlet weak var bookFavoriteControl: AGTStar!
     
     
     override func awakeFromNib() {
