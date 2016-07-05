@@ -8,8 +8,8 @@
 
 import UIKit
 
-let bookDidChangeNotification = "Selected Book did change"
-let bookKey = "key"
+let favoriteArrayDidChange = "Favorites Array did change"
+let favKey = "key"
 
 class AGTBookViewController: UIViewController {
 
@@ -24,11 +24,6 @@ class AGTBookViewController: UIViewController {
     @IBOutlet weak var bookTags: UILabel!
     
     @IBOutlet weak var bookFavoriteControl: AGTStar!
-    
-    
-    
-    
-    
     
     var model : AGTBook
     
@@ -67,15 +62,14 @@ class AGTBookViewController: UIViewController {
         bookTags.text = model.tags
         
         //Status of Favorite Button (change the button status and the value of favorite var)
-        //bookFavoriteControl.isFavorite = model.favorite
         isFavorite = model.favorite
         bookFavoriteControl.selected = model.favorite
-        
         
     }
     
     
     //MARK: - Actions
+    
     // view pdf button
     @IBAction func displayPDF(sender: AnyObject) {
         
@@ -84,16 +78,40 @@ class AGTBookViewController: UIViewController {
         //Make a push of NavigationCOntroller
         navigationController?.pushViewController(pdfVC, animated: true)
     }
+    
+    // Favorite button pressed
     @IBAction func favButtonPressed(sender: AnyObject) {
-        print("se apreto el boton")
+        // Change favorite status of the Book
+        //print("se apreto el boton")
         isFavorite = !isFavorite
         bookFavoriteControl.selected = isFavorite
-        print("status de Favorito= ", isFavorite)
-        //Cambiamos el status de favorito del modelo
+        //print("status de Favorito= ", isFavorite)
         model.favorite = isFavorite
+
+        // Save the name of the book in NSUserDefaults
+        let defaults = NSUserDefaults.standardUserDefaults()
+        // Recover the value
+        let valueInDefaults = defaults.objectForKey("FavoritesBooks") as? [String] ?? [String]()
+        var favoriteArray = [String]()
+        // Modification conditional
+        if valueInDefaults.contains(model.title) {
+            // Erased from array
+            favoriteArray = valueInDefaults.filter({$0 != model.title})
+        } else {
+            // Saved in array
+            favoriteArray = valueInDefaults + [model.title]
+            print("Se grabara ",favoriteArray)
+        }
+        //lo ordenamos antes de volver a grabarlo
+        favoriteArray.sortInPlace()
+        //lo volvemos a grabar
+        defaults.setObject(favoriteArray, forKey: "FavoritesBooks")
+        let grabado = defaults.objectForKey("FavoritesBooks") as? [String] ?? [String]()
+        print("Array grabado", grabado)
+        
         //Enviamos la info via notificacion
         let nc = NSNotificationCenter.defaultCenter()
-        let notif = NSNotification(name: bookDidChangeNotification, object: self, userInfo: [BookKey: model])
+        let notif = NSNotification(name: favoriteArrayDidChange, object: self, userInfo: nil)
         nc.postNotification(notif)
         
     }

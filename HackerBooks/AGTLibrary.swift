@@ -13,12 +13,12 @@ class AGTLibrary {
     //MARK: Utility types
     typealias AGTBooksArray         =   [AGTBook]
     typealias AGTTagsArray          =   [String]
-    typealias AGTBooksDictionary    =   [String : AGTBooksArray]
+    //typealias AGTBooksDictionary    =   [String : AGTBooksArray]
 
     //MARK: - Properties
     //Books Array
     var books: AGTBooksArray
-    //var dict : AGTBooksDictionary
+    var favoritesArray : [String]
     
     //Tags array
     var libraryCleanandSortedTags: AGTTagsArray = []
@@ -27,12 +27,18 @@ class AGTLibrary {
     init(arrayOfBooks : AGTBooksArray) {
         
         books = arrayOfBooks
+        let defaults = NSUserDefaults.standardUserDefaults()
+        favoritesArray = defaults.objectForKey("FavoritesBooks") as? [String] ?? [String]()
         //Creation of tags array
         var libraryTags = AGTTagsArray()
         //Passthrough of all Books
         for eachBook in books {
             let bookTags = eachBook.tags.componentsSeparatedByString(", ")
             libraryTags = libraryTags + bookTags
+            // change fav status with favArray values
+            if favoritesArray.contains(eachBook.title){
+                eachBook.favorite = true
+            }
         }
         // Cleaning duplicates and sorted alphabetically
         libraryCleanandSortedTags = libraryTags.removeDuplicates().sort()
@@ -102,6 +108,8 @@ class AGTLibrary {
         var booksForTag = AGTBooksArray()
         for eachBook in books {
             let tagsInArray = eachBook.tags.componentsSeparatedByString(", ")
+            // PRUEBA
+            //eachBook.favorite = true
             if tagsInArray.contains(tag) {
                 //print("Añadido al arreglo")
                 booksForTag.append(eachBook)
@@ -123,6 +131,9 @@ class AGTLibrary {
         return collection[index]
     }
 
-    
+    func book(forTitle title: String) -> AGTBook? {
+        let coincidence = books.filter { $0.title == title }
+        return coincidence[0]
+    }
     
 }

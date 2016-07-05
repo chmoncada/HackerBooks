@@ -10,17 +10,22 @@ import UIKit
 
 let BookDidChangeNotification = "Selected Book did change"
 let BookKey = "Key"
+let defaults = NSUserDefaults.standardUserDefaults()
 
 class AGTLibraryTableViewController: UITableViewController {
 
     //MARK: - Properties
     // We make it var because the model will change
     var model : AGTLibrary
+    var favoritesArray : [String]
     var delegate : AGTLibraryTableViewControllerDelegate?
     
     //MARK: - Initialization
     init(model: AGTLibrary) {
         self.model = model
+        self.favoritesArray = defaults.objectForKey("FavoritesBooks") as? [String] ?? [String]()
+        print("Array recuperado", self.favoritesArray)
+        
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -34,9 +39,24 @@ class AGTLibraryTableViewController: UITableViewController {
         super.viewDidLoad()
 
         // Register custom cell
+        //let nib = UINib(nibName: "AGTLibraryTableViewCell", bundle: nil)
+        //tableView.registerNib(nib, forCellReuseIdentifier: "cell")
+        
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        // Register custom cell
         let nib = UINib(nibName: "AGTLibraryTableViewCell", bundle: nil)
         tableView.registerNib(nib, forCellReuseIdentifier: "cell")
+        let nc = NSNotificationCenter.defaultCenter()
+        nc.addObserver(self, selector: #selector(favChange), name: favoriteArrayDidChange, object: nil)
         
+    }
+    
+    func favChange(notification: NSNotification) {
+        print("Recibi la notificacion")
+        self.favoritesArray = defaults.objectForKey("FavoritesBooks") as? [String] ?? [String]()
+        self.tableView.reloadData()
     }
 
     override func didReceiveMemoryWarning() {
@@ -44,13 +64,27 @@ class AGTLibraryTableViewController: UITableViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    // FALTA ARREGLAR ESTO
     //MARK: - Table view delegate
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         
         // Which book
-        let newSection = indexPath.section - 1
-        let sectionTag = model.tag(atIndex: newSection)
-        let book = model.book(atIndex: indexPath.row, forTag:sectionTag!)
+        let book : AGTBook?
+        if indexPath.section == 0 {
+            
+            // Get the book
+            let BookTitle = favoritesArray[indexPath.row]
+            book = model.book(forTitle: BookTitle)
+            
+        } else {
+            
+            // Get the book
+            let newSection = indexPath.section - 1
+            let sectionTag = model.tag(atIndex: newSection)
+            book = model.book(atIndex: indexPath.row, forTag:sectionTag!)
+            
+        }
+        
         // Tell the delegate
         delegate?.agtLibraryTableViewController(self, didSelectBook: book!)
         // Send info via notifications
@@ -63,20 +97,15 @@ class AGTLibraryTableViewController: UITableViewController {
     // MARK: - Table view data source
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        // Number of tags in the library
-        //return model.tagCount
-        //PRUEBA
-        // con favorites section
+        
         return model.tagCount + 1
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+
         // Number of Books for a specific tag
-        //let sectionTag = model.tag(atIndex: section)
-        //return model.bookCount(forTag: sectionTag!)
-        //PRUEBA CON FAVORITOS
         if section == 0 {
-            return 1
+            return favoritesArray.count
         } else {
             // Number of Books for a specific tag
             let newSection = section - 1
@@ -89,79 +118,56 @@ class AGTLibraryTableViewController: UITableViewController {
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
-//        // Get the book
-//        let sectionTag = model.tag(atIndex: indexPath.section)
-//        let book = model.book(atIndex: indexPath.row, forTag:sectionTag!)
-//        
-//        // Configure the cell...
-//        let cell:AGTLibraryTableViewCell = self.tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath) as! AGTLibraryTableViewCell
-//
-//        //Sync the cell with the data
-//        let data = NSData(contentsOfURL: (book?.image_url)!)
-//        cell.bookImage.image = UIImage(data: data!)
-//        cell.bookTitle.text = book?.title
-//        cell.bookAuthors.text = book?.authors
-//        //print((book?.title)!," status favorito: ", (book?.favorite)!)
-//        cell.bookFavoriteControl.selected = (book?.favorite)!
-//        
-//        return cell
-        
-        // PRUEBA CON FAVORITOS
+        let book: AGTBook?
         if indexPath.section == 0 {
             
-            // Configure the cell...
-            let cell:AGTLibraryTableViewCell = self.tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath) as! AGTLibraryTableViewCell
-            
-            //Sync the cell with the data
-//            let data = NSData(contentsOfURL: (book?.image_url)!)
-            cell.bookImage.image = UIImage(named: "star")
-            cell.bookTitle.text = "PRUEBA"
-            cell.bookAuthors.text = "PRUEBA"
-            cell.bookFavoriteControl.selected = true
-            
-            return cell
+            // Get the book
+            let BookTitle = favoritesArray[indexPath.row]
+            book = model.book(forTitle: BookTitle)
 
-            
         } else {
+            
             // Get the book
             let newSection = indexPath.section - 1
             let sectionTag = model.tag(atIndex: newSection)
-            let book = model.book(atIndex: indexPath.row, forTag:sectionTag!)
-            
-            // Configure the cell...
-            let cell:AGTLibraryTableViewCell = self.tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath) as! AGTLibraryTableViewCell
-            
-            //Sync the cell with the data
-            let data = NSData(contentsOfURL: (book?.image_url)!)
-            cell.bookImage.image = UIImage(data: data!)
-            cell.bookTitle.text = book?.title
-            cell.bookAuthors.text = book?.authors
-            //print((book?.title)!," status favorito: ", (book?.favorite)!)
-            cell.bookFavoriteControl.selected = (book?.favorite)!
-            
-            return cell
+            book = model.book(atIndex: indexPath.row, forTag:sectionTag!)
 
         }
         
+        // Configure the cell...
+        let cell:AGTLibraryTableViewCell = self.tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath) as! AGTLibraryTableViewCell
+        
+        //Sync the cell with the data
+        let data = NSData(contentsOfURL: (book?.image_url)!)
+        cell.bookImage.image = UIImage(data: data!)
+        cell.bookTitle.text = book?.title
+        cell.bookAuthors.text = book?.authors
+        cell.bookFavoriteControl.selected = (book?.favorite)!
+        
+        return cell
         
     }
-     override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+    
+    override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         
-        //return model.tag(atIndex: section)?.uppercaseString
-        
-        //PRUEBA
         if section == 0 {
-            return "FAVORITOS"
+            guard favoritesArray.count == 0 else {
+                return "FAVORITES"
+            }
+            return nil //Retornar nil si queremos que no aparezca el titulo
         } else {
-            return model.tag(atIndex: section)?.uppercaseString
+            let newSection = section - 1
+            return model.tag(atIndex: newSection)?.uppercaseString
         }
         
     }
 
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        return 60
+        
+            return 60
+        
     }
-    
+
 }
 
 protocol AGTLibraryTableViewControllerDelegate {
