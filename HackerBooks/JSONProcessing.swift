@@ -9,15 +9,6 @@
 import Foundation
 import UIKit
 
-/*
- {
- "authors": "Scott Chacon, Ben Straub",
- "image_url": "http://hackershelf.com/media/cache/b4/24/b42409de128aa7f1c9abbbfa549914de.jpg",
- "pdf_url": "https://progit2.s3.amazonaws.com/en/2015-03-06-439c2/progit-en.376.pdf",
- "tags": "version control, git",
- "title": "Pro Git"
- }
- */
 
 //MARK: Aliases
 
@@ -70,7 +61,7 @@ func decode(agtBook json: JSONDictionary?) throws -> AGTBook {
 
 //MARK: Loading and Saving Utils
 
-//Local file loading
+//JSON Local file loading
 func loadJSONLocally() throws -> JSONArray{
     let documents = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0]
     let writePath = NSURL(fileURLWithPath: documents).URLByAppendingPathComponent("books_readable.json")
@@ -83,7 +74,7 @@ func loadJSONLocally() throws -> JSONArray{
     }
 }
 
-// Remote loading
+//JSON Remote loading
 func loadJSONFromRemoteFile(atURL inputUrl: String) throws -> JSONArray{
     if let url = NSURL(string: inputUrl),
         data = NSData(contentsOfURL: url),
@@ -95,6 +86,66 @@ func loadJSONFromRemoteFile(atURL inputUrl: String) throws -> JSONArray{
         throw HackerBooksError.jsonParsingError
     }
 }
+
+func loadPDF(remoteURL url: NSURL, webViewer: UIWebView) {
+    //Load the PDF
+    let nameOfPDF = url.pathComponents?.last
+    let fileExist = NSFileManager.defaultManager().fileExistsAtPath(sandboxPath(forFile: nameOfPDF!))
+    
+    if fileExist {
+        
+        loadLocalPDF(remoteURL: url, webViewer: webViewer)
+        
+    } else {
+        
+        loadRemotePDF(remoteURL: url, webViewer: webViewer)
+        
+    }
+}
+
+func loadLocalPDF(remoteURL url: NSURL, webViewer: UIWebView) {
+    
+    let nameOfPDF = url.pathComponents?.last
+    let loadPath = sandboxURLPath(forFile: nameOfPDF!)
+    let data = NSData(contentsOfURL: loadPath)
+    webViewer.loadData(data!, MIMEType: "application/pdf", textEncodingName: "", baseURL: loadPath.URLByDeletingPathExtension!) // sync load, block the app
+}
+
+func loadRemotePDF(remoteURL url: NSURL, webViewer: UIWebView) {
+    
+    let nameOfPDF = url.pathComponents?.last
+    let data = NSData(contentsOfURL: url)
+    webViewer.loadData(data!, MIMEType: "application/pdf", textEncodingName: "", baseURL: url.URLByDeletingPathExtension!) // sync load, block the app
+    // save the pdf in the sandbox
+    saveData(data!, name: nameOfPDF!)
+    
+}
+
+func loadImage(remoteURL url: NSURL) -> UIImage {
+    //Load the PDF
+    let nameOfImage = url.pathComponents?.last
+    let fileExist = NSFileManager.defaultManager().fileExistsAtPath(sandboxPath(forFile: nameOfImage!))
+    var imageView = UIImage()
+    
+    if fileExist {
+        
+        let loadPath = sandboxURLPath(forFile: nameOfImage!)
+        let data = NSData(contentsOfURL: loadPath)
+        imageView = UIImage(data: data!)!
+        
+    } else {
+        
+        let data = NSData(contentsOfURL: url)
+        imageView = UIImage(data: data!)!
+        // save image in the sandbox
+        saveData(data!, name: nameOfImage!)
+
+    }
+    return imageView
+}
+
+
+
 
 // Sandbox utils
 
@@ -116,7 +167,6 @@ func sandboxPath(forFile file:String) -> String{
     return localPath
 }
 
-//MARK: - Local path utils
 func sandboxURLPath(forFile file:String) -> NSURL{
     // Get the Sandbox path, every time the app starts, it changes
     let documents = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0]

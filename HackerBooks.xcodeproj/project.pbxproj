@@ -27,8 +27,6 @@
 		A1B274F51D222D7B0047BF63 /* Errors.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B274F41D222D7B0047BF63 /* Errors.swift */; };
 		A1CF05F31D273C9F00168E5C /* AGTLibraryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1CF05F11D273C9F00168E5C /* AGTLibraryTableViewCell.swift */; };
 		A1CF05F41D273C9F00168E5C /* AGTLibraryTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A1CF05F21D273C9F00168E5C /* AGTLibraryTableViewCell.xib */; };
-		A1CF05F61D274FDD00168E5C /* star.png in Resources */ = {isa = PBXBuildFile; fileRef = A1CF05F51D274FDD00168E5C /* star.png */; };
-		A1D27E6B1D288A48009866BC /* books_readable.json in Resources */ = {isa = PBXBuildFile; fileRef = A1D27E6A1D288A48009866BC /* books_readable.json */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -75,8 +73,6 @@
 		A1B274F41D222D7B0047BF63 /* Errors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Errors.swift; sourceTree = "<group>"; };
 		A1CF05F11D273C9F00168E5C /* AGTLibraryTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AGTLibraryTableViewCell.swift; sourceTree = "<group>"; };
 		A1CF05F21D273C9F00168E5C /* AGTLibraryTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AGTLibraryTableViewCell.xib; sourceTree = "<group>"; };
-		A1CF05F51D274FDD00168E5C /* star.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = star.png; sourceTree = "<group>"; };
-		A1D27E6A1D288A48009866BC /* books_readable.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = books_readable.json; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -196,8 +192,6 @@
 			children = (
 				A17A3BA91D29BAF800A3679F /* filledStar.png */,
 				A17A3BA31D29B94400A3679F /* emptyStar.png */,
-				A1D27E6A1D288A48009866BC /* books_readable.json */,
-				A1CF05F51D274FDD00168E5C /* star.png */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -319,9 +313,7 @@
 				A17A3BA41D29B94400A3679F /* emptyStar.png in Resources */,
 				A1CF05F41D273C9F00168E5C /* AGTLibraryTableViewCell.xib in Resources */,
 				A1B274BE1D2175450047BF63 /* Assets.xcassets in Resources */,
-				A1CF05F61D274FDD00168E5C /* star.png in Resources */,
 				A107637A1D24238E00443304 /* AGTSimplePDFViewController.xib in Resources */,
-				A1D27E6B1D288A48009866BC /* books_readable.json in Resources */,
 				A197F1501D2367DB00A18EC9 /* AGTBookViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

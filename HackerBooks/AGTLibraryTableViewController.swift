@@ -53,6 +53,11 @@ class AGTLibraryTableViewController: UITableViewController {
         self.tableView.reloadData()
     }
 
+    deinit {
+        NSNotificationCenter.defaultCenter().removeObserver(self)
+    }
+    
+    //MARK: - Memory
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -131,8 +136,10 @@ class AGTLibraryTableViewController: UITableViewController {
         let cell:AGTLibraryTableViewCell = self.tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath) as! AGTLibraryTableViewCell
         
         //Sync the cell with the data
-        let data = NSData(contentsOfURL: (book?.image_url)!)
-        cell.bookImage.image = UIImage(data: data!)
+        
+        //let data = NSData(contentsOfURL: (book?.image_url)!)
+        //cell.bookImage.image = UIImage(data: data!)
+        cell.bookImage.image = loadImage(remoteURL: (book?.image_url)!)
         cell.bookTitle.text = book?.title
         cell.bookAuthors.text = book?.authors
         cell.bookFavoriteControl.selected = (book?.favorite)!

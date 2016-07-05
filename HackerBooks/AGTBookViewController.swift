@@ -46,9 +46,7 @@ class AGTBookViewController: UIViewController {
         self.title = model.title
         
         //Book Photo
-        // Carga asincrona, arreglar con chequeo de que el fichero ya existe en los recursos!!!
-        let data = NSData(contentsOfURL: model.image_url)
-        bookImage.image = UIImage(data: data!)
+        bookImage.image = loadImage(remoteURL: model.image_url)
         
         //Book Title
         bookTitle.text = model.title
