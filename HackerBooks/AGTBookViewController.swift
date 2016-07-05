@@ -14,7 +14,6 @@ let favKey = "key"
 class AGTBookViewController: UIViewController {
 
     //MARK: - Properties
-    
     @IBOutlet weak var bookImage: UIImageView!
     
     @IBOutlet weak var bookTitle: UILabel!
@@ -27,7 +26,6 @@ class AGTBookViewController: UIViewController {
     
     var model : AGTBook
     
-    //Prueba de boton
     var isFavorite = false
     
     //MARK: - Initialization
@@ -82,10 +80,8 @@ class AGTBookViewController: UIViewController {
     // Favorite button pressed
     @IBAction func favButtonPressed(sender: AnyObject) {
         // Change favorite status of the Book
-        //print("se apreto el boton")
         isFavorite = !isFavorite
         bookFavoriteControl.selected = isFavorite
-        //print("status de Favorito= ", isFavorite)
         model.favorite = isFavorite
 
         // Save the name of the book in NSUserDefaults
@@ -100,14 +96,11 @@ class AGTBookViewController: UIViewController {
         } else {
             // Saved in array
             favoriteArray = valueInDefaults + [model.title]
-            print("Se grabara ",favoriteArray)
         }
         //lo ordenamos antes de volver a grabarlo
         favoriteArray.sortInPlace()
         //lo volvemos a grabar
-        defaults.setObject(favoriteArray, forKey: "FavoritesBooks")
-        let grabado = defaults.objectForKey("FavoritesBooks") as? [String] ?? [String]()
-        print("Array grabado", grabado)
+        defaults.setObject(favoriteArray, forKey: "FavoritesBooks")        
         
         //Enviamos la info via notificacion
         let nc = NSNotificationCenter.defaultCenter()

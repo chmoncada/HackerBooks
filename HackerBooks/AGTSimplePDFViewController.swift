@@ -31,15 +31,31 @@ class AGTSimplePDFViewController: UIViewController, UIWebViewDelegate {
         
         pdfViewer.delegate = self
         activityView.startAnimating()
-        pdfViewer.loadData(NSData(contentsOfURL: model.pdf_url)!, MIMEType: "application/pdf", textEncodingName: "", baseURL: model.pdf_url.URLByDeletingPathExtension!) // sync load, block the app
         
-//        if let pdfURL = NSBundle.mainBundle().URLForResource("c21_01_01_cover3", withExtension: "pdf", subdirectory: nil, localization: nil),data = NSData(contentsOfURL: pdfURL), baseURL = pdfURL.URLByDeletingLastPathComponent  {
-//            let webView = UIWebView(frame: CGRectMake(20,20,self.view.frame.size.width-40,self.view.frame.size.height-40))
-//            webView.loadData(data, MIMEType: "application/pdf", textEncodingName:"", baseURL: baseURL)
-//            self.view.addSubview(webView)
-//        }
-//        
+        //Load the PDF
+        let nameOfPDF = model.pdf_url.pathComponents?.last
+        print(nameOfPDF)
+        let fileExist = NSFileManager.defaultManager().fileExistsAtPath(sandboxPath(forFile: nameOfPDF!))
+        print(sandboxPath(forFile: nameOfPDF!))
+        print(fileExist)
         
+        if fileExist {
+            print("lo saco del sandbox...")
+            let loadPath = sandboxURLPath(forFile: nameOfPDF!)
+            let data = NSData(contentsOfURL: loadPath)
+            pdfViewer.loadData(data!, MIMEType: "application/pdf", textEncodingName: "", baseURL: loadPath.URLByDeletingPathExtension!) // sync load, block the app
+        } else {
+            print("lo descargo de Internet")
+            let data = NSData(contentsOfURL: model.pdf_url)
+            pdfViewer.loadData(data!, MIMEType: "application/pdf", textEncodingName: "", baseURL: model.pdf_url.URLByDeletingPathExtension!) // sync load, block the app
+            //lo grabo en el sandbox
+            saveData(data!, name: nameOfPDF!)
+            print("Grabado en el sandbox")
+            let fileSaved = NSFileManager.defaultManager().fileExistsAtPath(sandboxPath(forFile: nameOfPDF!))
+            print(fileSaved)
+            
+        }
+       
     }
     
     //MARK: - View lifecycle

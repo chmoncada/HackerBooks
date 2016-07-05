@@ -19,8 +19,7 @@ class AGTBook {
     var favorite : Bool
     //We take the assumption that all fields are mandatory
     
-    //falta anadir el link de favoritos
-    
+        
     //MARK: Initialization
     init(title:String, authors:String, tags:String, image_url: NSURL, pdf_url: NSURL, favorite: Bool){
         self.title = title

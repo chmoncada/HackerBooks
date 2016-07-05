@@ -10,8 +10,6 @@ import UIKit
 
 class AGTStar: UIButton{
     
-
-    var spacing = 5
     
     // MARK: Initialization
     

@@ -89,21 +89,21 @@ func loadJSONFromRemoteFile(atURL inputUrl: String) throws -> JSONArray{
         data = NSData(contentsOfURL: url),
         maybeArray = try? NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers) as? JSONArray,
         array = maybeArray {
-        saveData(data)
+        saveData(data, name: "books_readable.json")
         return array
     } else {
         throw HackerBooksError.jsonParsingError
     }
 }
 
-// Sandbox saving
+// Sandbox utils
 
-// falta hacerlo mas generico
-func saveData(data: NSData){
+func saveData(data: NSData, name: String){
     let documents = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0]
-    let writePath = NSURL(fileURLWithPath: documents).URLByAppendingPathComponent("books_readable.json")
+    let writePath = NSURL(fileURLWithPath: documents).URLByAppendingPathComponent(name)
     data.writeToURL(writePath, atomically: false)
 }
+
 
 
 //MARK: - Local path utils
@@ -111,8 +111,17 @@ func sandboxPath(forFile file:String) -> String{
     // Get the Sandbox path, every time the app starts, it changes
     let documents = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0]
     let filePath = "/" + file
-    let writePath = documents.stringByAppendingString(filePath)
+    let localPath = documents.stringByAppendingString(filePath)
     
-    return writePath
+    return localPath
+}
+
+//MARK: - Local path utils
+func sandboxURLPath(forFile file:String) -> NSURL{
+    // Get the Sandbox path, every time the app starts, it changes
+    let documents = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0]
+    let localPath = NSURL(fileURLWithPath: documents).URLByAppendingPathComponent(file)
+    
+    return localPath
 }
 

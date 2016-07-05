@@ -42,25 +42,6 @@ class AGTLibrary {
         }
         // Cleaning duplicates and sorted alphabetically
         libraryCleanandSortedTags = libraryTags.removeDuplicates().sort()
-//        print(libraryCleanandSortedTags)
-//        print(tagCount)
-//        print(tag(atIndex: 0))
-//        print(tag(atIndex: 30))
-//        print(tag(atIndex: 61))
-//        print(tag(atIndex: 62))
-//        print(tag(atIndex: -5))
-        // PRUEBA DE FUNCION print("HOLA",bookCount(forTag: "asgit"))
-        //print(booksCount)
-//        print( books(forTag: "git" )!)
-//        print(book(atIndex: 0, forTag: "git"))
-//        print(book(atIndex: 1, forTag: "git"))
-//        print(book(atIndex: 2, forTag: "git"))
-//        print(book(atIndex: -2, forTag: "git"))
-//        print(book(atIndex: 2, forTag: "asdgit"))
-        
-//        let sectionTag = tag(atIndex: 49)
-//        print(sectionTag)
-//        print(bookCount(forTag: sectionTag!))
         
     }
     
@@ -91,11 +72,9 @@ class AGTLibrary {
     func bookCount(forTag tag: String) -> Int{
         // cuantos libros por tag, si no existe devuelve 0
         var counter : Int = 0
-        // tal vez deberia convertir cada tag string en un array de strings
         for eachBook in books {
             let tagsInArray = eachBook.tags.componentsSeparatedByString(", ")
             if tagsInArray.contains(tag) {
-                //print("encontre en", eachBook)
                 counter += 1
             }
         }
@@ -108,10 +87,8 @@ class AGTLibrary {
         var booksForTag = AGTBooksArray()
         for eachBook in books {
             let tagsInArray = eachBook.tags.componentsSeparatedByString(", ")
-            // PRUEBA
-            //eachBook.favorite = true
+            
             if tagsInArray.contains(tag) {
-                //print("Añadido al arreglo")
                 booksForTag.append(eachBook)
                 //falta ordenar
                 booksForTag = booksForTag.sort { $0.0.title.lowercaseString < $0.1.title.lowercaseString }

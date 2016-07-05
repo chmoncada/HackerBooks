@@ -24,7 +24,6 @@ class AGTLibraryTableViewController: UITableViewController {
     init(model: AGTLibrary) {
         self.model = model
         self.favoritesArray = defaults.objectForKey("FavoritesBooks") as? [String] ?? [String]()
-        print("Array recuperado", self.favoritesArray)
         
         super.init(nibName: nil, bundle: nil)
     }
@@ -37,10 +36,6 @@ class AGTLibraryTableViewController: UITableViewController {
     //MARK: - lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Register custom cell
-        //let nib = UINib(nibName: "AGTLibraryTableViewCell", bundle: nil)
-        //tableView.registerNib(nib, forCellReuseIdentifier: "cell")
         
     }
     
@@ -54,7 +49,6 @@ class AGTLibraryTableViewController: UITableViewController {
     }
     
     func favChange(notification: NSNotification) {
-        print("Recibi la notificacion")
         self.favoritesArray = defaults.objectForKey("FavoritesBooks") as? [String] ?? [String]()
         self.tableView.reloadData()
     }
@@ -64,7 +58,6 @@ class AGTLibraryTableViewController: UITableViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    // FALTA ARREGLAR ESTO
     //MARK: - Table view delegate
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         
@@ -165,7 +158,6 @@ class AGTLibraryTableViewController: UITableViewController {
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         
             return 60
-        
     }
 
 }
