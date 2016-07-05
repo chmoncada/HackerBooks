@@ -15,7 +15,7 @@ class AGTSimplePDFViewController: UIViewController, UIWebViewDelegate {
     
     @IBOutlet weak var pdfViewer: UIWebView!
     @IBOutlet weak var activityView: UIActivityIndicatorView!
-    
+    @IBOutlet weak var warningAdvice: UILabel!
     
     init(model: AGTBook) {
         self.model = model
@@ -32,7 +32,14 @@ class AGTSimplePDFViewController: UIViewController, UIWebViewDelegate {
         pdfViewer.delegate = self
         activityView.startAnimating()
         // Call a loadPDF function
-        loadPDF(remoteURL: model.pdf_url, webViewer: pdfViewer)
+        do {
+            try loadPDF(remoteURL: model.pdf_url, webViewer: pdfViewer)
+        } catch {
+            activityView.stopAnimating()
+            activityView.hidesWhenStopped = true
+            warningAdvice.text = "PDF file not exist anymore!!"
+        }
+        
     }
     
     //MARK: - View lifecycle

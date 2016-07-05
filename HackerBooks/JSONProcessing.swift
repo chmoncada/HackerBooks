@@ -87,7 +87,7 @@ func loadJSONFromRemoteFile(atURL inputUrl: String) throws -> JSONArray{
     }
 }
 
-func loadPDF(remoteURL url: NSURL, webViewer: UIWebView) {
+func loadPDF(remoteURL url: NSURL, webViewer: UIWebView) throws {
     //Load the PDF
     let nameOfPDF = url.pathComponents?.last
     let fileExist = NSFileManager.defaultManager().fileExistsAtPath(sandboxPath(forFile: nameOfPDF!))
@@ -97,9 +97,11 @@ func loadPDF(remoteURL url: NSURL, webViewer: UIWebView) {
         loadLocalPDF(remoteURL: url, webViewer: webViewer)
         
     } else {
-        
-        loadRemotePDF(remoteURL: url, webViewer: webViewer)
-        
+        do{
+         try loadRemotePDF(remoteURL: url, webViewer: webViewer)
+        } catch {
+            throw HackerBooksError.ResourcePointedByURLNotReachable
+        }
     }
 }
 
@@ -111,13 +113,15 @@ func loadLocalPDF(remoteURL url: NSURL, webViewer: UIWebView) {
     webViewer.loadData(data!, MIMEType: "application/pdf", textEncodingName: "", baseURL: loadPath.URLByDeletingPathExtension!) // sync load, block the app
 }
 
-func loadRemotePDF(remoteURL url: NSURL, webViewer: UIWebView) {
+func loadRemotePDF(remoteURL url: NSURL, webViewer: UIWebView) throws {
     
     let nameOfPDF = url.pathComponents?.last
-    let data = NSData(contentsOfURL: url)
-    webViewer.loadData(data!, MIMEType: "application/pdf", textEncodingName: "", baseURL: url.URLByDeletingPathExtension!) // sync load, block the app
+    guard let data = NSData(contentsOfURL: url) else {
+        throw HackerBooksError.ResourcePointedByURLNotReachable
+    }
+    webViewer.loadData(data, MIMEType: "application/pdf", textEncodingName: "", baseURL: url.URLByDeletingPathExtension!) // sync load, block the app
     // save the pdf in the sandbox
-    saveData(data!, name: nameOfPDF!)
+    saveData(data, name: nameOfPDF!)
     
 }
 
