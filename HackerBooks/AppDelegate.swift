@@ -65,24 +65,42 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Model Creation
         let model = AGTLibrary(arrayOfBooks: books)
         
-        // Create a window
-        window = UIWindow(frame: UIScreen.mainScreen().bounds)
-        // Creation of libraryVC
-        let lVC = AGTLibraryTableViewController(model: model)
-        // Put the libraryVC inside a NavigationController
-        let lNav = UINavigationController(rootViewController: lVC)
-        lNav.navigationBar.topItem?.title = "HackerBooks"
-        // Creation of BookVC
-        let bVC = AGTBookViewController(model: model.book(atIndex: 0, forTag: model.tag(atIndex: 0)!)!)
-        // Put the BookVC inside Navigation Controller
-        let bNav = UINavigationController(rootViewController: bVC)
-        //Creation of SplitView and put the 2 VCs
-        let splitVC = UISplitViewController()
-        splitVC.viewControllers = [lNav, bNav]
-        // make the NavigationController as rootViewController
-        window?.rootViewController = splitVC
-        // Designate the delegates
-        lVC.delegate = bVC
+        if (UI_USER_INTERFACE_IDIOM()==UIUserInterfaceIdiom.Phone) {
+            print("es un iphone")
+            window = UIWindow(frame: UIScreen.mainScreen().bounds)
+            // Creation of libraryVC
+            let lVC = AGTLibraryTableViewController(model: model)
+            // Put the libraryVC inside a NavigationController
+            let lNav = UINavigationController(rootViewController: lVC)
+            lNav.navigationBar.topItem?.title = "HackerBooks"
+            // make the NavigationController as rootViewController
+            window?.rootViewController = lNav
+            // Designate the delegates
+            lVC.delegate = lVC
+
+        } else if (UI_USER_INTERFACE_IDIOM()==UIUserInterfaceIdiom.Pad){
+            print("es un ipad")
+            // Create a window
+            window = UIWindow(frame: UIScreen.mainScreen().bounds)
+            // Creation of libraryVC
+            let lVC = AGTLibraryTableViewController(model: model)
+            // Put the libraryVC inside a NavigationController
+            let lNav = UINavigationController(rootViewController: lVC)
+            lNav.navigationBar.topItem?.title = "HackerBooks"
+            // Creation of BookVC
+            let bVC = AGTBookViewController(model: model.book(atIndex: 0, forTag: model.tag(atIndex: 0)!)!)
+            // Put the BookVC inside Navigation Controller
+            let bNav = UINavigationController(rootViewController: bVC)
+            //Creation of SplitView and put the 2 VCs
+            let splitVC = UISplitViewController()
+            splitVC.viewControllers = [lNav, bNav]
+            // make the NavigationController as rootViewController
+            window?.rootViewController = splitVC
+            // Designate the delegates
+            lVC.delegate = bVC
+
+        }
+        
         // Make the windows visible & key
         window!.makeKeyAndVisible()
         
