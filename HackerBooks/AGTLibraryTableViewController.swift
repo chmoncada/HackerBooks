@@ -90,6 +90,13 @@ class AGTLibraryTableViewController: UITableViewController {
         let notif = NSNotification(name: BookDidChangeNotification, object: self, userInfo: [BookKey:book!])
         nc.postNotification(notif)
         
+        
+        
+        // iPhone test
+//        if let bVC = self.delegate as? AGTBookViewController {
+//            splitViewController?.showDetailViewController(bVC, sender: nil)
+//        }
+        
     }
 
     // MARK: - Table view data source
@@ -168,6 +175,19 @@ class AGTLibraryTableViewController: UITableViewController {
     }
 
 }
+
+extension AGTLibraryTableViewController: AGTLibraryTableViewControllerDelegate{
+    
+    func agtLibraryTableViewController(vc : AGTLibraryTableViewController, didSelectBook book: AGTBook){
+        // Update the model
+        let bVC = AGTBookViewController(model: book)
+        // Make a push
+        navigationController?.pushViewController(bVC, animated: true)
+    }
+    
+    
+}
+
 
 protocol AGTLibraryTableViewControllerDelegate {
     func agtLibraryTableViewController(vc : AGTLibraryTableViewController, didSelectBook book: AGTBook)
