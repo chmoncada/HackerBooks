@@ -13,8 +13,7 @@ class AGTLibrary {
     //MARK: Utility types
     typealias AGTBooksArray         =   [AGTBook]
     typealias AGTTagsArray          =   [String]
-    //typealias AGTBooksDictionary    =   [String : AGTBooksArray]
-
+    
     //MARK: - Properties
     //Books Array
     var books: AGTBooksArray
@@ -27,6 +26,7 @@ class AGTLibrary {
     init(arrayOfBooks : AGTBooksArray) {
         
         books = arrayOfBooks
+        books = books.sort { $0.0.title.lowercaseString < $0.1.title.lowercaseString }
         let defaults = NSUserDefaults.standardUserDefaults()
         favoritesArray = defaults.objectForKey("FavoritesBooks") as? [String] ?? [String]()
         //Creation of tags array
@@ -48,7 +48,7 @@ class AGTLibrary {
     //MARK: - Computed Properties
     var tagCount : Int {
         get{
-            //Indica cuantos tags hay
+            // How many tags exists
             return libraryCleanandSortedTags.count
         }
     }
@@ -70,7 +70,7 @@ class AGTLibrary {
     }
     
     func bookCount(forTag tag: String) -> Int{
-        // cuantos libros por tag, si no existe devuelve 0
+        // How many books for tag, if not exists return 0
         var counter : Int = 0
         for eachBook in books {
             let tagsInArray = eachBook.tags.componentsSeparatedByString(", ")
@@ -83,14 +83,13 @@ class AGTLibrary {
     }
     
     func books(forTag tag: String) -> AGTBooksArray?{
-        //devuelve array de libros en tag
+        // Return array of books with the tag
         var booksForTag = AGTBooksArray()
         for eachBook in books {
             let tagsInArray = eachBook.tags.componentsSeparatedByString(", ")
             
             if tagsInArray.contains(tag) {
                 booksForTag.append(eachBook)
-                //falta ordenar
                 booksForTag = booksForTag.sort { $0.0.title.lowercaseString < $0.1.title.lowercaseString }
             }
         }
@@ -104,13 +103,17 @@ class AGTLibrary {
         guard index < collection.count && index >= 0 else {
             return nil
         }
-        // el libro en el index en el tag
+        // return the book
         return collection[index]
     }
 
     func book(forTitle title: String) -> AGTBook? {
         let coincidence = books.filter { $0.title == title }
         return coincidence[0]
+    }
+    
+    func book(atIndex index: Int) -> AGTBook? {
+        return books[index]
     }
     
 }

@@ -42,7 +42,7 @@ class AGTBookViewController: UIViewController {
     //MARK: - Syncing
     func syncModelWithView(){
         
-        //Titulo del navigation bar
+        //Navigation Bar title
         self.title = model.title
         
         //Book Photo
@@ -95,12 +95,12 @@ class AGTBookViewController: UIViewController {
             // Saved in array
             favoriteArray = valueInDefaults + [model.title]
         }
-        //lo ordenamos antes de volver a grabarlo
+        // Sorted before saved
         favoriteArray.sortInPlace()
-        //lo volvemos a grabar
+        // Saving the array back to NSUserDefaults
         defaults.setObject(favoriteArray, forKey: "FavoritesBooks")        
         
-        //Enviamos la info via notificacion
+        // Send the info via notificacion
         let nc = NSNotificationCenter.defaultCenter()
         let notif = NSNotification(name: favoriteArrayDidChange, object: self, userInfo: nil)
         nc.postNotification(notif)
