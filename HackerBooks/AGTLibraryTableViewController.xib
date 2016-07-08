@@ -18,17 +18,18 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="AUw-cB-GTv">
-                    <rect key="frame" x="253" y="77" width="94" height="29"/>
+                    <rect key="frame" x="8" y="562" width="584" height="29"/>
                     <segments>
-                        <segment title="Title" width="50"/>
+                        <segment title="Title"/>
                         <segment title="Tags"/>
                     </segments>
+                    <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <connections>
                         <action selector="changeTable:" destination="-1" eventType="valueChanged" id="9x3-K5-Ggi"/>
                     </connections>
                 </segmentedControl>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="86v-QD-dcI">
-                    <rect key="frame" x="0.0" y="115" width="600" height="477"/>
+                    <rect key="frame" x="0.0" y="0.0" width="600" height="547"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <connections>
                         <outlet property="dataSource" destination="-1" id="62c-sx-7lJ"/>
@@ -36,14 +37,16 @@
                     </connections>
                 </tableView>
             </subviews>
-            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstItem="86v-QD-dcI" firstAttribute="width" secondItem="iN0-l3-epB" secondAttribute="width" id="AI7-YR-0MP"/>
+                <constraint firstItem="AUw-cB-GTv" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="8" id="CQn-ld-pCl"/>
+                <constraint firstItem="86v-QD-dcI" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="CgD-Fe-tCm"/>
+                <constraint firstItem="AUw-cB-GTv" firstAttribute="top" secondItem="86v-QD-dcI" secondAttribute="bottom" constant="15" id="JLi-8M-JNg"/>
                 <constraint firstItem="AUw-cB-GTv" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="MmP-Oo-phD"/>
                 <constraint firstItem="86v-QD-dcI" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="PPl-w2-iy9"/>
-                <constraint firstAttribute="bottom" secondItem="86v-QD-dcI" secondAttribute="bottom" constant="8" id="XAb-Cf-yQS"/>
-                <constraint firstItem="86v-QD-dcI" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="115" id="YBo-Gz-LqG"/>
-                <constraint firstItem="AUw-cB-GTv" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="77" id="mmZ-1j-UHa"/>
+                <constraint firstAttribute="trailing" secondItem="AUw-cB-GTv" secondAttribute="trailing" constant="8" id="Rkj-QX-5IM"/>
+                <constraint firstAttribute="bottom" secondItem="AUw-cB-GTv" secondAttribute="bottom" constant="10" id="sni-dQ-Upk"/>
             </constraints>
         </view>
     </objects>

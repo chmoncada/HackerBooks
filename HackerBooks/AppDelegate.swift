@@ -17,6 +17,25 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         
+        // MARK: Maquillaje
+        UIApplication.sharedApplication().statusBarStyle = UIStatusBarStyle.LightContent
+        
+        // Navigation Bar Appearance
+        let navigationBarAppearace = UINavigationBar.appearance()
+        navigationBarAppearace.titleTextAttributes=[NSForegroundColorAttributeName:UIColor.whiteColor()]
+        navigationBarAppearace.barTintColor = UIColor.blackColor()
+        navigationBarAppearace.translucent = false
+        // Back Button Appearance
+        navigationBarAppearace.tintColor = UIColor.init(red: 1.0, green: 0.737, blue: 0.173, alpha: 1.00)
+        UIBarButtonItem.appearance().setTitleTextAttributes([NSForegroundColorAttributeName: UIColor.init(red: 1.0, green: 0.737, blue: 0.173, alpha: 1.00)], forState: UIControlState.Normal)
+        // UITableViewHeader appearance
+        let headerTableViewAppearance = UITableViewHeaderFooterView.appearance()
+        headerTableViewAppearance.tintColor = UIColor.blackColor()
+        //UILabel.appearanceWhenContainedInInstancesOfClasses([UITableViewHeaderFooterView.self]).textColor = UIColor.whiteColor()
+        
+        
+        
+        
         // Creation of model instance
         var books = [AGTBook]()
         var jsonParsed = JSONArray()

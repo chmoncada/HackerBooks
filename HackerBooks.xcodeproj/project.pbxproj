@@ -9,9 +9,8 @@
 /* Begin PBXBuildFile section */
 		A10763791D24238E00443304 /* AGTSimplePDFViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10763771D24238E00443304 /* AGTSimplePDFViewController.swift */; };
 		A107637A1D24238E00443304 /* AGTSimplePDFViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A10763781D24238E00443304 /* AGTSimplePDFViewController.xib */; };
+		A1098F431D2F0D5800BE8779 /* emptyStar.png in Resources */ = {isa = PBXBuildFile; fileRef = A1098F421D2F0D5800BE8779 /* emptyStar.png */; };
 		A10BB2DA1D2601420059A8A7 /* AGTLibraryTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10BB2D91D2601420059A8A7 /* AGTLibraryTableViewController.swift */; };
-		A17A3BA41D29B94400A3679F /* emptyStar.png in Resources */ = {isa = PBXBuildFile; fileRef = A17A3BA31D29B94400A3679F /* emptyStar.png */; };
-		A17A3BAA1D29BAF800A3679F /* filledStar.png in Resources */ = {isa = PBXBuildFile; fileRef = A17A3BA91D29BAF800A3679F /* filledStar.png */; };
 		A17A3BAC1D29BBB500A3679F /* AGTStar.swift in Sources */ = {isa = PBXBuildFile; fileRef = A17A3BAB1D29BBB500A3679F /* AGTStar.swift */; };
 		A197F14B1D23662700A18EC9 /* Foundation.swift in Sources */ = {isa = PBXBuildFile; fileRef = A197F14A1D23662700A18EC9 /* Foundation.swift */; };
 		A197F14F1D2367DB00A18EC9 /* AGTBookViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A197F14D1D2367DB00A18EC9 /* AGTBookViewController.swift */; };
@@ -28,6 +27,7 @@
 		A1B274F51D222D7B0047BF63 /* Errors.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B274F41D222D7B0047BF63 /* Errors.swift */; };
 		A1CF05F31D273C9F00168E5C /* AGTLibraryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1CF05F11D273C9F00168E5C /* AGTLibraryTableViewCell.swift */; };
 		A1CF05F41D273C9F00168E5C /* AGTLibraryTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A1CF05F21D273C9F00168E5C /* AGTLibraryTableViewCell.xib */; };
+		A1EA3C071D2EBCD80011FCC7 /* filledStar.png in Resources */ = {isa = PBXBuildFile; fileRef = A1EA3C061D2EBCD80011FCC7 /* filledStar.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -50,9 +50,8 @@
 /* Begin PBXFileReference section */
 		A10763771D24238E00443304 /* AGTSimplePDFViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AGTSimplePDFViewController.swift; sourceTree = "<group>"; };
 		A10763781D24238E00443304 /* AGTSimplePDFViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AGTSimplePDFViewController.xib; sourceTree = "<group>"; };
+		A1098F421D2F0D5800BE8779 /* emptyStar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = emptyStar.png; sourceTree = "<group>"; };
 		A10BB2D91D2601420059A8A7 /* AGTLibraryTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AGTLibraryTableViewController.swift; sourceTree = "<group>"; };
-		A17A3BA31D29B94400A3679F /* emptyStar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = emptyStar.png; sourceTree = "<group>"; };
-		A17A3BA91D29BAF800A3679F /* filledStar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = filledStar.png; sourceTree = "<group>"; };
 		A17A3BAB1D29BBB500A3679F /* AGTStar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AGTStar.swift; sourceTree = "<group>"; };
 		A197F14A1D23662700A18EC9 /* Foundation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Foundation.swift; sourceTree = "<group>"; };
 		A197F14D1D2367DB00A18EC9 /* AGTBookViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AGTBookViewController.swift; sourceTree = "<group>"; };
@@ -75,6 +74,7 @@
 		A1B274F41D222D7B0047BF63 /* Errors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Errors.swift; sourceTree = "<group>"; };
 		A1CF05F11D273C9F00168E5C /* AGTLibraryTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AGTLibraryTableViewCell.swift; sourceTree = "<group>"; };
 		A1CF05F21D273C9F00168E5C /* AGTLibraryTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AGTLibraryTableViewCell.xib; sourceTree = "<group>"; };
+		A1EA3C061D2EBCD80011FCC7 /* filledStar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = filledStar.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -193,8 +193,8 @@
 		A1B274E61D2177C00047BF63 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				A17A3BA91D29BAF800A3679F /* filledStar.png */,
-				A17A3BA31D29B94400A3679F /* emptyStar.png */,
+				A1098F421D2F0D5800BE8779 /* emptyStar.png */,
+				A1EA3C061D2EBCD80011FCC7 /* filledStar.png */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -312,9 +312,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				A1B274C11D2175450047BF63 /* LaunchScreen.storyboard in Resources */,
-				A17A3BAA1D29BAF800A3679F /* filledStar.png in Resources */,
+				A1098F431D2F0D5800BE8779 /* emptyStar.png in Resources */,
 				A1B120D91D2DE67C007746B9 /* AGTLibraryTableViewController.xib in Resources */,
-				A17A3BA41D29B94400A3679F /* emptyStar.png in Resources */,
+				A1EA3C071D2EBCD80011FCC7 /* filledStar.png in Resources */,
 				A1CF05F41D273C9F00168E5C /* AGTLibraryTableViewCell.xib in Resources */,
 				A1B274BE1D2175450047BF63 /* Assets.xcassets in Resources */,
 				A107637A1D24238E00443304 /* AGTSimplePDFViewController.xib in Resources */,

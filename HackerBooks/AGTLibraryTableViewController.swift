@@ -193,21 +193,35 @@ class AGTLibraryTableViewController: UIViewController, UITableViewDataSource, UI
         } else {
             if section == 0 {
                 guard favoritesArray.count == 0 else {
-                    return "FAVORITES"
+                    return "Favorites"
                 }
                 return nil //to avoid any header
             } else {
                 let newSection = section - 1
-                return model.tag(atIndex: newSection)?.uppercaseString
+                return model.tag(atIndex: newSection)
             }
         }
     }
 
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         
-            return 60
+            return 100
     }
 
+    func tableView(tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int)
+    {
+        let title = UILabel()
+        //title.font = UIFont(name: "Futura", size: 38)!
+        title.textColor = UIColor.whiteColor()
+        //title.backgroundColor = UIColor.clearColor()
+        
+        let header = view as! UITableViewHeaderFooterView
+        //header.opaque = true
+        //header.textLabel?.font=title.font
+        header.textLabel?.textColor=title.textColor
+        //header.contentView.backgroundColor = UIColor.clearColor()
+        //header.backgroundColor = UIColor.clearColor()
+    }
 }
 
 
