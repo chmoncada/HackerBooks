@@ -50,12 +50,11 @@ La actualizacion de vista del pdf se hizo mediante una notificacion de la Tablev
 ## Extras
 
 ### Funcionalidades Extras
-1. Carga asincrona para no "bloquear la app
-2. Colocar una barra de progreso de descarga del PDF, ya que puede tomar bastante tiempo y ver el activityIndicator tanto tiempo no da mucha info
-3. Poder descargar el pdf desde el mismo tableviewcell con un indicador
-4. Mejorar el visor de pdf con anotaciones, bookmarks y demas
-5. Poder crear tus propias categorias
-6. Poder añadir tus propios libros y poder borrar los que no queremos
+1. Colocar una barra de progreso de descarga del PDF, ya que puede tomar bastante tiempo y ver el activityIndicator tanto tiempo no da mucha info
+2. Poder descargar el pdf desde el mismo tableviewcell con un indicador
+3. Mejorar el visor de pdf con anotaciones, bookmarks y demas
+4. Poder crear tus propias categorias
+5. Poder añadir tus propios libros y poder borrar los que no queremos
 
 ### Otras versiones
 
