@@ -49,7 +49,7 @@
                     <rect key="frame" x="31" y="482" width="538" height="30"/>
                     <color key="backgroundColor" red="0.90196079019999997" green="0.90196079019999997" blue="0.90196079019999997" alpha="1" colorSpace="calibratedRGB"/>
                     <attributedString key="attributedText">
-                        <fragment content=" TITLE">
+                        <fragment content=" TAGS">
                             <attributes>
                                 <color key="NSColor" red="0.40000000600000002" green="0.40000000600000002" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
                                 <font key="NSFont" size="14" name="HelveticaNeue"/>
@@ -63,7 +63,7 @@
                     <rect key="frame" x="31" y="383" width="538" height="30"/>
                     <color key="backgroundColor" red="0.90196079019999997" green="0.90196079019999997" blue="0.90196079019999997" alpha="1" colorSpace="calibratedRGB"/>
                     <attributedString key="attributedText">
-                        <fragment content="AUTHORS">
+                        <fragment content=" AUTHORS">
                             <attributes>
                                 <color key="NSColor" red="0.40000000600000002" green="0.40000000600000002" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
                                 <font key="NSFont" size="14" name="HelveticaNeue"/>

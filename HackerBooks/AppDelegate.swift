@@ -13,28 +13,13 @@ import UIKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-
+    let tintColor = UIColor.blackColor()
+    let backButtonColor = UIColor(red: 1.0, green: 0.737, blue: 0.173, alpha: 1.00)
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         
         // MARK: Maquillaje
-        UIApplication.sharedApplication().statusBarStyle = UIStatusBarStyle.LightContent
-        
-        // Navigation Bar Appearance
-        let navigationBarAppearace = UINavigationBar.appearance()
-        navigationBarAppearace.titleTextAttributes=[NSForegroundColorAttributeName:UIColor.whiteColor()]
-        navigationBarAppearace.barTintColor = UIColor.blackColor()
-        navigationBarAppearace.translucent = false
-        // Back Button Appearance
-        navigationBarAppearace.tintColor = UIColor.init(red: 1.0, green: 0.737, blue: 0.173, alpha: 1.00)
-        UIBarButtonItem.appearance().setTitleTextAttributes([NSForegroundColorAttributeName: UIColor.init(red: 1.0, green: 0.737, blue: 0.173, alpha: 1.00)], forState: UIControlState.Normal)
-        // UITableViewHeader appearance
-        let headerTableViewAppearance = UITableViewHeaderFooterView.appearance()
-        headerTableViewAppearance.tintColor = UIColor.blackColor()
-        //UILabel.appearanceWhenContainedInInstancesOfClasses([UITableViewHeaderFooterView.self]).textColor = UIColor.whiteColor()
-        
-        
-        
+        customizeAppearance()
         
         // Creation of model instance
         var books = [AGTBook]()
@@ -85,7 +70,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let model = AGTLibrary(arrayOfBooks: books)
         
         if (UI_USER_INTERFACE_IDIOM()==UIUserInterfaceIdiom.Phone) {
-            print("es un iphone")
             window = UIWindow(frame: UIScreen.mainScreen().bounds)
             // Creation of libraryVC
             let lVC = AGTLibraryTableViewController(model: model)
@@ -98,7 +82,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             lVC.delegate = lVC
 
         } else if (UI_USER_INTERFACE_IDIOM()==UIUserInterfaceIdiom.Pad){
-            print("es un ipad")
             // Create a window
             window = UIWindow(frame: UIScreen.mainScreen().bounds)
             // Creation of libraryVC
@@ -149,5 +132,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
 
+    //MARK: - Color Customization
+    
+    private func customizeAppearance() {
+        
+        UIApplication.sharedApplication().statusBarStyle = UIStatusBarStyle.LightContent
+        
+        // Navigation Bar Appearance
+        UINavigationBar.appearance().titleTextAttributes=[NSForegroundColorAttributeName:UIColor.whiteColor()]
+        UINavigationBar.appearance().barTintColor = tintColor
+        UINavigationBar.appearance().translucent = false
+        // Back Button Appearance
+        UINavigationBar.appearance().tintColor = backButtonColor
+        UINavigationBar.appearance().titleTextAttributes = [NSForegroundColorAttributeName:backButtonColor]
+        // UITableViewHeader appearance
+        UITableViewHeaderFooterView.appearance().tintColor = tintColor
+
+    }
 
 }

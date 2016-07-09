@@ -176,7 +176,14 @@ class AGTLibraryTableViewController: UIViewController, UITableViewDataSource, UI
         
         //Sync the cell with the data
         
-        cell.bookImage.image = loadImage(remoteURL: (book?.image_url)!)
+        //Initially we start putting a static file in imageview
+        cell.bookImage.image = UIImage(named: "emptyBook")
+        
+        // Carga asyncrona
+        loadImage(remoteURL: (book?.image_url)!, completion: {(image: UIImage?) in
+            cell.bookImage.image = image
+        })
+        
         cell.bookTitle.text = book?.title
         cell.bookAuthors.text = book?.authors
         cell.bookFavoriteControl.selected = (book?.favorite)!

@@ -30,6 +30,7 @@ class AGTSimplePDFViewController: UIViewController, UIWebViewDelegate {
     func syncModelWithView(){
         
         pdfViewer.delegate = self
+        self.title = "PDF view"
         activityView.startAnimating()
         // Call a loadPDF function
         do {

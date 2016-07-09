@@ -93,11 +93,12 @@ func loadPDF(remoteURL url: NSURL, webViewer: UIWebView) throws {
     let fileExist = NSFileManager.defaultManager().fileExistsAtPath(sandboxPath(forFile: nameOfPDF!))
     
     if fileExist {
-        
+        //print("Sacando del Sandbox...")
         loadLocalPDF(remoteURL: url, webViewer: webViewer)
         
     } else {
         do{
+         //print("Descargando...")
          try loadRemotePDF(remoteURL: url, webViewer: webViewer)
         } catch {
             throw HackerBooksError.ResourcePointedByURLNotReachable
@@ -115,41 +116,60 @@ func loadLocalPDF(remoteURL url: NSURL, webViewer: UIWebView) {
 
 func loadRemotePDF(remoteURL url: NSURL, webViewer: UIWebView) throws {
     
-    let nameOfPDF = url.pathComponents?.last
-    guard let data = NSData(contentsOfURL: url) else {
-        throw HackerBooksError.ResourcePointedByURLNotReachable
-    }
-    webViewer.loadData(data, MIMEType: "application/pdf", textEncodingName: "", baseURL: url.URLByDeletingPathExtension!) // sync load, block the app
-    // save the pdf in the sandbox
-    saveData(data, name: nameOfPDF!)
+    UIApplication.sharedApplication().networkActivityIndicatorVisible = true
+    let downloadTask: NSURLSessionDataTask = NSURLSession.sharedSession().dataTaskWithURL(url, completionHandler: {(data: NSData?, response: NSURLResponse?, error: NSError?) -> Void in
+        UIApplication.sharedApplication().networkActivityIndicatorVisible = false
+        let nameOfPDF = url.pathComponents?.last
+        if (error != nil) {
+            print("ERROR")        }
+        if let data = data {
+            //print("Descargado")
+            webViewer.loadData(data, MIMEType: "application/pdf", textEncodingName: "", baseURL: url.URLByDeletingPathExtension!)
+            saveData(data, name: nameOfPDF!)
+            
+        }
+        
+    })
+    
+    downloadTask.resume()
     
 }
 
-func loadImage(remoteURL url: NSURL) -> UIImage {
+func loadImage(remoteURL url: NSURL, completion: (image: UIImage?) -> ())  {
     //Load the PDF
     let nameOfImage = url.pathComponents?.last
     let fileExist = NSFileManager.defaultManager().fileExistsAtPath(sandboxPath(forFile: nameOfImage!))
     var imageView = UIImage()
     
     if fileExist {
-        
         let loadPath = sandboxURLPath(forFile: nameOfImage!)
         let data = NSData(contentsOfURL: loadPath)
         imageView = UIImage(data: data!)!
-        
-    } else {
-        
-        let data = NSData(contentsOfURL: url)
-        imageView = UIImage(data: data!)!
-        // save image in the sandbox
-        saveData(data!, name: nameOfImage!)
-
+        dispatch_async(dispatch_get_main_queue(), {() in
+            completion(image: imageView)
+        })
+        return
     }
-    return imageView
+    UIApplication.sharedApplication().networkActivityIndicatorVisible = true
+    let downloadTask: NSURLSessionDataTask = NSURLSession.sharedSession().dataTaskWithURL(url, completionHandler: {(data: NSData?, response: NSURLResponse?, error: NSError?) -> Void in
+        UIApplication.sharedApplication().networkActivityIndicatorVisible = false
+        if (error != nil) {
+            completion(image: nil)
+            return
+        }
+        if let data = data {
+            imageView = UIImage(data: data)!
+            saveData(data, name: nameOfImage!)
+            dispatch_async(dispatch_get_main_queue(), {() in
+                completion(image: imageView)
+            })
+            return
+        }
+        
+    })
+    downloadTask.resume()
+
 }
-
-
-
 
 // Sandbox utils
 
@@ -157,6 +177,7 @@ func saveData(data: NSData, name: String){
     let documents = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0]
     let writePath = NSURL(fileURLWithPath: documents).URLByAppendingPathComponent(name)
     data.writeToURL(writePath, atomically: false)
+    //print("Grabado en Sandbox")
 }
 
 

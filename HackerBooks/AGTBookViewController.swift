@@ -43,11 +43,12 @@ class AGTBookViewController: UIViewController {
     func syncModelWithView(){
         
         //Navigation Bar title
-        self.title = model.title
+        self.title = "Book details"
         
         //Book Photo
-        bookImage.image = loadImage(remoteURL: model.image_url)
-        
+        loadImage(remoteURL: model.image_url, completion: {(image: UIImage?) in
+            self.bookImage.image = image
+        })
         //Book Title
         bookTitle.text = model.title
         
