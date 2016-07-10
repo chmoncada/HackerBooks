@@ -87,51 +87,32 @@ func loadJSONFromRemoteFile(atURL inputUrl: String) throws -> JSONArray{
     }
 }
 
-func loadPDF(remoteURL url: NSURL, webViewer: UIWebView) throws {
+func loadPDF(download: Download, webViewer: UIWebView, session: NSURLSession) {
     //Load the PDF
+    let url = download.url
     let nameOfPDF = url.pathComponents?.last
     let fileExist = NSFileManager.defaultManager().fileExistsAtPath(sandboxPath(forFile: nameOfPDF!))
     
     if fileExist {
-        //print("Sacando del Sandbox...")
         loadLocalPDF(remoteURL: url, webViewer: webViewer)
-        
     } else {
-        do{
-         //print("Descargando...")
-         try loadRemotePDF(remoteURL: url, webViewer: webViewer)
-        } catch {
-            throw HackerBooksError.ResourcePointedByURLNotReachable
-        }
+        loadRemotePDF(download, webViewer: webViewer, session: session)
     }
 }
 
 func loadLocalPDF(remoteURL url: NSURL, webViewer: UIWebView) {
-    
     let nameOfPDF = url.pathComponents?.last
     let loadPath = sandboxURLPath(forFile: nameOfPDF!)
     let data = NSData(contentsOfURL: loadPath)
     webViewer.loadData(data!, MIMEType: "application/pdf", textEncodingName: "", baseURL: loadPath.URLByDeletingPathExtension!) // sync load, block the app
 }
 
-func loadRemotePDF(remoteURL url: NSURL, webViewer: UIWebView) throws {
+func loadRemotePDF(download: Download, webViewer: UIWebView, session: NSURLSession) {
     
     UIApplication.sharedApplication().networkActivityIndicatorVisible = true
-    let downloadTask: NSURLSessionDataTask = NSURLSession.sharedSession().dataTaskWithURL(url, completionHandler: {(data: NSData?, response: NSURLResponse?, error: NSError?) -> Void in
-        UIApplication.sharedApplication().networkActivityIndicatorVisible = false
-        let nameOfPDF = url.pathComponents?.last
-        if (error != nil) {
-            print("ERROR")        }
-        if let data = data {
-            //print("Descargado")
-            webViewer.loadData(data, MIMEType: "application/pdf", textEncodingName: "", baseURL: url.URLByDeletingPathExtension!)
-            saveData(data, name: nameOfPDF!)
-            
-        }
-        
-    })
-    
-    downloadTask.resume()
+    download.downloadTask = session.downloadTaskWithURL(download.url)
+    download.downloadTask?.resume()
+    //download.isDownloading = true
     
 }
 
@@ -167,6 +148,7 @@ func loadImage(remoteURL url: NSURL, completion: (image: UIImage?) -> ())  {
         }
         
     })
+    
     downloadTask.resume()
 
 }
@@ -177,7 +159,6 @@ func saveData(data: NSData, name: String){
     let documents = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0]
     let writePath = NSURL(fileURLWithPath: documents).URLByAppendingPathComponent(name)
     data.writeToURL(writePath, atomically: false)
-    //print("Grabado en Sandbox")
 }
 
 

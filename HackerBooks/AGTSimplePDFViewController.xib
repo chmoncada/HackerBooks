@@ -7,8 +7,9 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="AGTSimplePDFViewController" customModule="HackerBooks" customModuleProvider="target">
             <connections>
-                <outlet property="activityView" destination="DwB-AB-27C" id="rUT-v3-gf9"/>
                 <outlet property="pdfViewer" destination="XpA-p7-Sec" id="j8m-fh-nPJ"/>
+                <outlet property="progressBar" destination="Txo-Gg-A4r" id="UaS-l1-pmE"/>
+                <outlet property="progressLabel" destination="Ctz-sf-tjj" id="m4l-lX-pVm"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
                 <outlet property="warningAdvice" destination="otM-lu-ShC" id="dDH-a6-leM"/>
             </connections>
@@ -22,12 +23,23 @@
                     <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                     <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="deviceRGB"/>
                 </webView>
-                <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="DwB-AB-27C">
-                    <rect key="frame" x="282" y="281" width="37" height="37"/>
-                    <color key="color" red="0.88235294119999996" green="0.34509803919999998" blue="0.16078431369999999" alpha="1" colorSpace="calibratedRGB"/>
-                </activityIndicatorView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="otM-lu-ShC">
                     <rect key="frame" x="300" y="300" width="0.0" height="0.0"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="Txo-Gg-A4r">
+                    <rect key="frame" x="225" y="299" width="150" height="2"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="150" id="LD1-sP-gRL"/>
+                    </constraints>
+                </progressView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0%" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ctz-sf-tjj">
+                    <rect key="frame" x="160" y="320" width="280" height="21"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="280" id="mXk-pl-5BL"/>
+                    </constraints>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
@@ -38,11 +50,13 @@
                 <constraint firstItem="XpA-p7-Sec" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" id="1Q5-ud-YoK"/>
                 <constraint firstItem="XpA-p7-Sec" firstAttribute="height" secondItem="i5M-Pr-FkT" secondAttribute="height" id="6sC-dG-Nfw"/>
                 <constraint firstItem="otM-lu-ShC" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="Cea-uK-0ml"/>
-                <constraint firstItem="DwB-AB-27C" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="IIa-Ji-Qrv"/>
+                <constraint firstItem="Txo-Gg-A4r" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" id="EwW-Sf-GaA"/>
+                <constraint firstItem="Ctz-sf-tjj" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="Ie1-45-7ad"/>
                 <constraint firstItem="XpA-p7-Sec" firstAttribute="width" secondItem="i5M-Pr-FkT" secondAttribute="width" id="LVq-dF-Rdg"/>
                 <constraint firstItem="XpA-p7-Sec" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="MOb-uz-BCF"/>
+                <constraint firstItem="Txo-Gg-A4r" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="N1G-hW-XXF"/>
                 <constraint firstItem="otM-lu-ShC" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" id="gR1-Zn-3uo"/>
-                <constraint firstItem="DwB-AB-27C" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" id="oOQ-98-hF0"/>
+                <constraint firstItem="Ctz-sf-tjj" firstAttribute="top" secondItem="Txo-Gg-A4r" secondAttribute="bottom" constant="19" id="ooX-AX-QVf"/>
             </constraints>
         </view>
     </objects>

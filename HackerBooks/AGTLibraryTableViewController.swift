@@ -218,16 +218,11 @@ class AGTLibraryTableViewController: UIViewController, UITableViewDataSource, UI
     func tableView(tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int)
     {
         let title = UILabel()
-        //title.font = UIFont(name: "Futura", size: 38)!
-        title.textColor = UIColor.whiteColor()
-        //title.backgroundColor = UIColor.clearColor()
+        title.textColor = UIColor(red: 1.0, green: 0.737, blue: 0.173, alpha: 1.00)
         
         let header = view as! UITableViewHeaderFooterView
-        //header.opaque = true
-        //header.textLabel?.font=title.font
-        header.textLabel?.textColor=title.textColor
-        //header.contentView.backgroundColor = UIColor.clearColor()
-        //header.backgroundColor = UIColor.clearColor()
+        header.textLabel?.textColor = title.textColor
+
     }
 }
 

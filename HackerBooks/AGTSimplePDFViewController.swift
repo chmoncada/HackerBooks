@@ -8,18 +8,32 @@
 
 import UIKit
 
-class AGTSimplePDFViewController: UIViewController, UIWebViewDelegate {
+class AGTSimplePDFViewController: UIViewController {
 
     //MARK: - Properties
     var model : AGTBook
+    var download: Download
+    
+    let documents = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0]
+    let fileManager = NSFileManager.defaultManager()
+    
+    lazy var downloadsSession: NSURLSession = {
+        let configuration = NSURLSessionConfiguration.defaultSessionConfiguration()
+        let session = NSURLSession(configuration: configuration, delegate: self, delegateQueue: nil)
+        return session
+    }()
     
     @IBOutlet weak var pdfViewer: UIWebView!
-    @IBOutlet weak var activityView: UIActivityIndicatorView!
     @IBOutlet weak var warningAdvice: UILabel!
+    @IBOutlet weak var progressBar: UIProgressView!
+    @IBOutlet weak var progressLabel: UILabel!
+    
     
     init(model: AGTBook) {
         self.model = model
+        self.download = Download(url: model.pdf_url)
         super.init(nibName: nil, bundle: nil)
+        
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -29,17 +43,16 @@ class AGTSimplePDFViewController: UIViewController, UIWebViewDelegate {
     //MARK: - Syncing
     func syncModelWithView(){
         
-        pdfViewer.delegate = self
         self.title = "PDF view"
-        activityView.startAnimating()
-        // Call a loadPDF function
-        do {
-            try loadPDF(remoteURL: model.pdf_url, webViewer: pdfViewer)
-        } catch {
-            activityView.stopAnimating()
-            activityView.hidesWhenStopped = true
-            warningAdvice.text = "PDF file not exist anymore!!"
+
+        // Hides the progress bar and label if the file exist locally
+        if fileManager.fileExistsAtPath(sandboxPath(forFile: (download.url.pathComponents?.last)!)) {
+            progressBar.hidden = true
+            progressLabel.hidden = true
         }
+        
+        loadPDF(download, webViewer: pdfViewer, session: downloadsSession)
+
         
     }
     
@@ -78,16 +91,55 @@ class AGTSimplePDFViewController: UIViewController, UIWebViewDelegate {
         let book = info[BookKey] as? AGTBook
         // Update the model
         model = book!
+        download = Download(url: model.pdf_url)
+        progressBar.hidden = false
+        progressLabel.hidden = false
         //Sync the view
         syncModelWithView()
     }
-    
-    
-    //MARK: - UIWebViewDelegate
-    func webViewDidFinishLoad(webView: UIWebView) {
-        // Stop the activity view and hide it
-        activityView.stopAnimating()
-        activityView.hidesWhenStopped = true
-    }
 
 }
+
+extension AGTSimplePDFViewController: NSURLSessionDownloadDelegate {
+    func URLSession(session: NSURLSession, downloadTask: NSURLSessionDownloadTask, didFinishDownloadingToURL location: NSURL) {
+        // Update network indicator
+        UIApplication.sharedApplication().networkActivityIndicatorVisible = false
+        
+        
+        // Move the file from temporal location to sandbox
+        if (downloadTask.originalRequest?.URL?.absoluteString) != nil {
+            let nameOfPDF = downloadTask.originalRequest?.URL!.pathComponents?.last
+            let writePath = NSURL(fileURLWithPath: documents).URLByAppendingPathComponent(nameOfPDF!)
+            do {
+                try fileManager.copyItemAtURL(location, toURL: writePath)
+                progressLabel.hidden = true
+                progressBar.hidden = true
+            } catch let error as NSError {
+                print("Could not copy file to disk: \(error.localizedDescription)")//CAMBIAR!!!
+            }
+        }
+        // Load the PDF from sandbox
+        loadLocalPDF(remoteURL: model.pdf_url, webViewer: pdfViewer)
+        
+        
+    }
+    
+    func URLSession(session: NSURLSession, downloadTask: NSURLSessionDownloadTask, didWriteData bytesWritten: Int64, totalBytesWritten: Int64, totalBytesExpectedToWrite: Int64) {
+        
+        // Calculate the progress
+        download.progress = Float(totalBytesWritten)/Float(totalBytesExpectedToWrite)
+        // Put total size of file in MB
+        let totalSize = NSByteCountFormatter.stringFromByteCount(totalBytesExpectedToWrite, countStyle: NSByteCountFormatterCountStyle.Binary)
+        
+        dispatch_async(dispatch_get_main_queue(), {
+            self.progressBar.progress = self.download.progress
+            self.progressLabel.text = String(format: "%.1f%% of %@",  self.download.progress * 100, totalSize)
+            
+        })
+
+        
+    }
+    
+}
+
+

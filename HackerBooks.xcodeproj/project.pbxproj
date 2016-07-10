@@ -12,6 +12,7 @@
 		A1098F431D2F0D5800BE8779 /* emptyStar.png in Resources */ = {isa = PBXBuildFile; fileRef = A1098F421D2F0D5800BE8779 /* emptyStar.png */; };
 		A1098F4D1D2F41E600BE8779 /* emptyBook.png in Resources */ = {isa = PBXBuildFile; fileRef = A1098F4C1D2F41E600BE8779 /* emptyBook.png */; };
 		A10BB2DA1D2601420059A8A7 /* AGTLibraryTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10BB2D91D2601420059A8A7 /* AGTLibraryTableViewController.swift */; };
+		A11F98C91D329CF500ECC504 /* DownloadPDF.swift in Sources */ = {isa = PBXBuildFile; fileRef = A11F98C81D329CF500ECC504 /* DownloadPDF.swift */; };
 		A17A3BAC1D29BBB500A3679F /* AGTStar.swift in Sources */ = {isa = PBXBuildFile; fileRef = A17A3BAB1D29BBB500A3679F /* AGTStar.swift */; };
 		A197F14B1D23662700A18EC9 /* Foundation.swift in Sources */ = {isa = PBXBuildFile; fileRef = A197F14A1D23662700A18EC9 /* Foundation.swift */; };
 		A197F14F1D2367DB00A18EC9 /* AGTBookViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A197F14D1D2367DB00A18EC9 /* AGTBookViewController.swift */; };
@@ -54,6 +55,7 @@
 		A1098F421D2F0D5800BE8779 /* emptyStar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = emptyStar.png; sourceTree = "<group>"; };
 		A1098F4C1D2F41E600BE8779 /* emptyBook.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = emptyBook.png; sourceTree = "<group>"; };
 		A10BB2D91D2601420059A8A7 /* AGTLibraryTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AGTLibraryTableViewController.swift; sourceTree = "<group>"; };
+		A11F98C81D329CF500ECC504 /* DownloadPDF.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownloadPDF.swift; sourceTree = "<group>"; };
 		A17A3BAB1D29BBB500A3679F /* AGTStar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AGTStar.swift; sourceTree = "<group>"; };
 		A197F14A1D23662700A18EC9 /* Foundation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Foundation.swift; sourceTree = "<group>"; };
 		A197F14D1D2367DB00A18EC9 /* AGTBookViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AGTBookViewController.swift; sourceTree = "<group>"; };
@@ -188,6 +190,7 @@
 				A1B274EA1D2181C30047BF63 /* AGTLibrary.swift */,
 				A1B274F21D222C310047BF63 /* JSONProcessingAndUtils.swift */,
 				A1B274F41D222D7B0047BF63 /* Errors.swift */,
+				A11F98C81D329CF500ECC504 /* DownloadPDF.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -357,6 +360,7 @@
 				A197F14F1D2367DB00A18EC9 /* AGTBookViewController.swift in Sources */,
 				A1B274F31D222C310047BF63 /* JSONProcessingAndUtils.swift in Sources */,
 				A17A3BAC1D29BBB500A3679F /* AGTStar.swift in Sources */,
+				A11F98C91D329CF500ECC504 /* DownloadPDF.swift in Sources */,
 				A1B274E91D2181B30047BF63 /* AGTBook.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
