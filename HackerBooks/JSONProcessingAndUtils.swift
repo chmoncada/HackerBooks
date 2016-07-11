@@ -90,19 +90,27 @@ func loadJSONFromRemoteFile(atURL inputUrl: String) throws -> JSONArray{
 func loadPDF(download: Download, webViewer: UIWebView, session: NSURLSession) {
     //Load the PDF
     let url = download.url
+    let title = download.title
     let nameOfPDF = url.pathComponents?.last
-    let fileExist = NSFileManager.defaultManager().fileExistsAtPath(sandboxPath(forFile: nameOfPDF!))
+    
+    // Check if the file exist in sandbox
+    let documents = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0]
+    let newDir = NSURL(fileURLWithPath: documents).URLByAppendingPathComponent(title)
+    let readPath = newDir.URLByAppendingPathComponent(nameOfPDF!)
+    let fileExist = NSFileManager.defaultManager().fileExistsAtPath(readPath.path!)
+
     
     if fileExist {
-        loadLocalPDF(remoteURL: url, webViewer: webViewer)
+        loadLocalPDF(remoteURL: url, title:title, webViewer: webViewer)
     } else {
         loadRemotePDF(download, webViewer: webViewer, session: session)
     }
 }
 
-func loadLocalPDF(remoteURL url: NSURL, webViewer: UIWebView) {
+func loadLocalPDF(remoteURL url: NSURL, title: String, webViewer: UIWebView) {
     let nameOfPDF = url.pathComponents?.last
-    let loadPath = sandboxURLPath(forFile: nameOfPDF!)
+    let fileToLoad = title + "/" + nameOfPDF!
+    let loadPath = sandboxURLPath(forFile: fileToLoad)
     let data = NSData(contentsOfURL: loadPath)
     webViewer.loadData(data!, MIMEType: "application/pdf", textEncodingName: "", baseURL: loadPath.URLByDeletingPathExtension!) // sync load, block the app
 }
@@ -112,7 +120,6 @@ func loadRemotePDF(download: Download, webViewer: UIWebView, session: NSURLSessi
     UIApplication.sharedApplication().networkActivityIndicatorVisible = true
     download.downloadTask = session.downloadTaskWithURL(download.url)
     download.downloadTask?.resume()
-    //download.isDownloading = true
     
 }
 

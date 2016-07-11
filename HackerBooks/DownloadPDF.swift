@@ -10,14 +10,16 @@ import Foundation
 
 class Download: NSObject {
     var url: NSURL
+    var title: String
     //var isDownloading = false - Future implementation
     var progress: Float = 0.0
     
     var downloadTask: NSURLSessionDownloadTask?
     //var resumeData: NSData? - Future implementation
     
-    init(url: NSURL) {
+    init(url: NSURL, title: String) {
         self.url = url
+        self.title = title
     }
 
 }

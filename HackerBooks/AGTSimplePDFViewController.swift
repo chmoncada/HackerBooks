@@ -31,7 +31,7 @@ class AGTSimplePDFViewController: UIViewController {
     
     init(model: AGTBook) {
         self.model = model
-        self.download = Download(url: model.pdf_url)
+        self.download = Download(url: model.pdf_url, title: model.title)
         super.init(nibName: nil, bundle: nil)
         
     }
@@ -46,11 +46,14 @@ class AGTSimplePDFViewController: UIViewController {
         self.title = "PDF view"
 
         // Hides the progress bar and label if the file exist locally
-        if fileManager.fileExistsAtPath(sandboxPath(forFile: (download.url.pathComponents?.last)!)) {
+        let newDir = NSURL(fileURLWithPath: documents).URLByAppendingPathComponent(model.title)
+        let filePath = newDir.URLByAppendingPathComponent((download.url.pathComponents?.last)!)
+        if fileManager.fileExistsAtPath(filePath.path!) {
             progressBar.hidden = true
             progressLabel.hidden = true
         }
         
+        // Load the PDF
         loadPDF(download, webViewer: pdfViewer, session: downloadsSession)
 
         
@@ -91,7 +94,7 @@ class AGTSimplePDFViewController: UIViewController {
         let book = info[BookKey] as? AGTBook
         // Update the model
         model = book!
-        download = Download(url: model.pdf_url)
+        download = Download(url: model.pdf_url, title: model.title)
         progressBar.hidden = false
         progressLabel.hidden = false
         //Sync the view
@@ -103,23 +106,33 @@ class AGTSimplePDFViewController: UIViewController {
 extension AGTSimplePDFViewController: NSURLSessionDownloadDelegate {
     func URLSession(session: NSURLSession, downloadTask: NSURLSessionDownloadTask, didFinishDownloadingToURL location: NSURL) {
         // Update network indicator
-        UIApplication.sharedApplication().networkActivityIndicatorVisible = false
-        
-        
+        dispatch_async(dispatch_get_main_queue(), {
+            UIApplication.sharedApplication().networkActivityIndicatorVisible = false
+            self.progressBar.hidden = true
+            self.progressLabel.hidden = true
+            
+        })
+
         // Move the file from temporal location to sandbox
         if (downloadTask.originalRequest?.URL?.absoluteString) != nil {
             let nameOfPDF = downloadTask.originalRequest?.URL!.pathComponents?.last
-            let writePath = NSURL(fileURLWithPath: documents).URLByAppendingPathComponent(nameOfPDF!)
+            // We create a new folder for each PDF to avoid same PDF names
+            let newDir = NSURL(fileURLWithPath: documents).URLByAppendingPathComponent(model.title)
+            do {
+                try fileManager.createDirectoryAtURL(newDir, withIntermediateDirectories: false, attributes: nil)
+            } catch {
+                print("Could not create Folder: \(error)")
+            }
+            
+            let writePath = newDir.URLByAppendingPathComponent(nameOfPDF!)
             do {
                 try fileManager.copyItemAtURL(location, toURL: writePath)
-                progressLabel.hidden = true
-                progressBar.hidden = true
             } catch let error as NSError {
-                print("Could not copy file to disk: \(error.localizedDescription)")//CAMBIAR!!!
+                print("Could not copy file to disk: \(error.localizedDescription)")
             }
         }
         // Load the PDF from sandbox
-        loadLocalPDF(remoteURL: model.pdf_url, webViewer: pdfViewer)
+        loadLocalPDF(remoteURL: model.pdf_url, title: model.title, webViewer: pdfViewer)
         
         
     }
