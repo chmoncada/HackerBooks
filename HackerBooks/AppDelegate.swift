@@ -18,7 +18,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         
-        // MARK: Maquillaje
+        // MARK: App appearance
         customizeAppearance()
         
         // Creation of model instance

@@ -51,14 +51,16 @@ class AGTLibraryTableViewController: UIViewController, UITableViewDataSource, UI
     
     //MARK: - lifecycle
     override func viewDidLoad() {
+        let nib = UINib(nibName: "AGTLibraryTableViewCell", bundle: nil)
+        tableView.registerNib(nib, forCellReuseIdentifier: "cell")
+
+        
         super.viewDidLoad()
         
     }
     
     override func viewWillAppear(animated: Bool) {
         // Register custom cell
-        let nib = UINib(nibName: "AGTLibraryTableViewCell", bundle: nil)
-        tableView.registerNib(nib, forCellReuseIdentifier: "cell")
         let nc = NSNotificationCenter.defaultCenter()
         nc.addObserver(self, selector: #selector(favChange), name: favoriteArrayDidChange, object: nil)
         
@@ -172,7 +174,8 @@ class AGTLibraryTableViewController: UIViewController, UITableViewDataSource, UI
         
         
         // Configure the cell...
-        let cell:AGTLibraryTableViewCell = self.tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath) as! AGTLibraryTableViewCell
+        
+        let cell = self.tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath) as! AGTLibraryTableViewCell
         
         //Sync the cell with the data
         
@@ -205,7 +208,7 @@ class AGTLibraryTableViewController: UIViewController, UITableViewDataSource, UI
                 return nil //to avoid any header
             } else {
                 let newSection = section - 1
-                return model.tag(atIndex: newSection)
+                return model.tag(atIndex: newSection)?.capitalizedString
             }
         }
     }
