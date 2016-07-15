@@ -10,7 +10,9 @@ import Foundation
 import UIKit
 
 let modelDidChange = "Model did change"
+let favStatusDidChange = "Favorite status did change"
 let modKey = "key"
+let nc = NSNotificationCenter.defaultCenter()
 
 class AGTBook {
     
@@ -21,7 +23,13 @@ class AGTBook {
     let image_url: NSURL
     var image: UIImage = UIImage()
     let pdf_url: NSURL
-    var favorite : Bool
+    var favorite : Bool {
+        // Property Observer
+        willSet {
+            let notif = NSNotification(name: favStatusDidChange, object: self, userInfo: nil)
+            nc.postNotification(notif)
+        }
+    }
     //We take the assumption that all fields are mandatory
     
         
@@ -41,7 +49,6 @@ class AGTBook {
         loadImage(remoteURL: image_url, completion: {(image: UIImage?) in
             self.image = image!
             // Send the notificacion that the model changed
-            let nc = NSNotificationCenter.defaultCenter()
             let notif = NSNotification(name: modelDidChange, object: self, userInfo: nil)
             nc.postNotification(notif)
             

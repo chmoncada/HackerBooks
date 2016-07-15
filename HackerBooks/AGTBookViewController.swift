@@ -8,9 +8,6 @@
 
 import UIKit
 
-let favoriteArrayDidChange = "Favorites Array did change"
-let favKey = "key"
-
 class AGTBookViewController: UIViewController {
 
     //MARK: - Properties
@@ -45,10 +42,7 @@ class AGTBookViewController: UIViewController {
         //Navigation Bar title
         self.title = "Book details"
         
-        //Book Photo
-        loadImage(remoteURL: model.image_url, completion: {(image: UIImage?) in
-            self.bookImage.image = image
-        })
+        bookImage.image = model.image
         //Book Title
         bookTitle.text = model.title
         
@@ -78,11 +72,7 @@ class AGTBookViewController: UIViewController {
     
     // Favorite button pressed
     @IBAction func favButtonPressed(sender: AnyObject) {
-        // Change favorite status of the Book
-        isFavorite = !isFavorite
-        bookFavoriteControl.selected = isFavorite
-        model.favorite = isFavorite
-
+        
         // Save the name of the book in NSUserDefaults
         let defaults = NSUserDefaults.standardUserDefaults()
         // Recover the value
@@ -99,12 +89,12 @@ class AGTBookViewController: UIViewController {
         // Sorted before saved
         favoriteArray.sortInPlace()
         // Saving the array back to NSUserDefaults
-        defaults.setObject(favoriteArray, forKey: "FavoritesBooks")        
+        defaults.setObject(favoriteArray, forKey: "FavoritesBooks")
         
-        // Send the info via notificacion
-        let nc = NSNotificationCenter.defaultCenter()
-        let notif = NSNotification(name: favoriteArrayDidChange, object: self, userInfo: nil)
-        nc.postNotification(notif)
+        // Change favorite status of the Book
+        isFavorite = !isFavorite
+        bookFavoriteControl.selected = isFavorite
+        model.favorite = isFavorite
         
     }
     
@@ -118,13 +108,18 @@ class AGTBookViewController: UIViewController {
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        
+        let nc = NSNotificationCenter.defaultCenter()
+        nc.addObserver(self, selector: #selector(modelChange), name: modelDidChange, object: nil)
         // Justo antes de montrarse (después de viewDidLoad)
         // Posiblemente más de una vez
         syncModelWithView()
         
     }
 
+    func modelChange(notification: NSNotification) {
+        bookImage.image = model.image
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.

@@ -62,7 +62,7 @@ class AGTLibraryTableViewController: UIViewController, UITableViewDataSource, UI
     override func viewWillAppear(animated: Bool) {
         // Register custom cell
         let nc = NSNotificationCenter.defaultCenter()
-        nc.addObserver(self, selector: #selector(favChange), name: favoriteArrayDidChange, object: nil)
+        nc.addObserver(self, selector: #selector(favChange), name: favStatusDidChange, object: nil)
         nc.addObserver(self, selector: #selector(modelChange), name: modelDidChange, object: nil)
         
     }
