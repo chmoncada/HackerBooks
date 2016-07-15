@@ -63,6 +63,7 @@ class AGTLibraryTableViewController: UIViewController, UITableViewDataSource, UI
         // Register custom cell
         let nc = NSNotificationCenter.defaultCenter()
         nc.addObserver(self, selector: #selector(favChange), name: favoriteArrayDidChange, object: nil)
+        nc.addObserver(self, selector: #selector(modelChange), name: modelDidChange, object: nil)
         
     }
     
@@ -76,8 +77,10 @@ class AGTLibraryTableViewController: UIViewController, UITableViewDataSource, UI
         self.favoritesArray = defaults.objectForKey("FavoritesBooks") as? [String] ?? [String]()
         self.tableView.reloadData()
     }
-
-
+    
+    func modelChange(notification: NSNotification) {
+        self.tableView.reloadData()
+    }
     
     //MARK: - Memory
     override func didReceiveMemoryWarning() {
@@ -172,21 +175,12 @@ class AGTLibraryTableViewController: UIViewController, UITableViewDataSource, UI
 
         }
         
-        
         // Configure the cell...
         
         let cell = self.tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath) as! AGTLibraryTableViewCell
         
         //Sync the cell with the data
-        
-        //Initially we start putting a static file in imageview
-        cell.bookImage.image = UIImage(named: "emptyBook")
-        
-        // Carga asyncrona
-        loadImage(remoteURL: (book?.image_url)!, completion: {(image: UIImage?) in
-            cell.bookImage.image = image
-        })
-        
+        cell.bookImage.image = book?.image
         cell.bookTitle.text = book?.title
         cell.bookAuthors.text = book?.authors
         cell.bookFavoriteControl.selected = (book?.favorite)!
